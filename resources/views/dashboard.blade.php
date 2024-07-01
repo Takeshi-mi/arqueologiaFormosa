@@ -14,4 +14,41 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <h1>Notícias</h1>
+        <a href="{{ route('noticias.create') }}" class="btn btn-primary"> Criar Notícia </a>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-sucess mt-2">
+                {{ $message }}
+            </div>
+        @endif
+        <table class="table table-bordered mt-2">
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>URL</th>
+            </tr>
+            @foreach ($noticias as $noticia)
+            <tr>
+                    <td>{{ $noticia->id }}</td>
+                    <td>{{ $noticia->titulo }}</td>
+                    <td>{{ $noticia->descricao }}</td>
+                    <td><a href="{{ $noticia->url }}" target="_blank">{{ $noticia->url }} </a></td>
+                    <td>
+                        <a class="btn btn-info" href="{{ route('noticias.show', $noticia->id)}}">Ver</a>
+                        <a class="btn btn-alert" href="{{ route('noticias.edit', $noticia->id)}}">Editar</a>
+                        <form action="{{ route('noticias.destroy', $noticia->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">
+                            </form>
+                    </td>
+            </tr>
+            @endforeach
+
+
+
+    </div>
 </x-app-layout>
