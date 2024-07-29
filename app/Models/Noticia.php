@@ -9,19 +9,18 @@ use Illuminate\Support\Facades\Storage;
 class Noticia extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'titulo',
         'descricao',
         'url',
     ];
 
-    public function storeArquivo($arquivo)
-    {
-        if($arquivo){
-            $path = $arquivo->store('arquivos','public');
+    public function storeArquivo($arquivo){
+        if ($arquivo){
+            $path = $arquivo->store('arquivos', 'public');
             $this->url = Storage::url($path);
-            $this->save(); //Salva o modelo para persistir o campo url no banco de dados
+            $this->save();
         }
     }
+
 }

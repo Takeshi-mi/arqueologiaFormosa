@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->string('descricao');
-            $table->string('url')->default('')->nullable(); // Para persistir no banco ele precisa salvar primiero vazio e depois salva em outro canto.
+            $table->string('url')->default('')->nullable(); //para que o dado persista no banco e para que não seja vazio.
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

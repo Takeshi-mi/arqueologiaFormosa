@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-// Essa classe faz o CRUD do sistema
 class ProfileController extends Controller
 {
     /**

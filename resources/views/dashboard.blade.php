@@ -1,3 +1,4 @@
+@include('layouts.navigation')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -17,12 +18,15 @@
 
     <div class="container">
         <h1>Notícias</h1>
-        <a href="{{ route('noticias.create') }}" class="btn btn-primary"> Criar Notícia </a>
-        @if ($message = Session::get('success'))
+        <a href="{{ route('noticias.create') }}" class="btn btn-primary">Criar notícia</a>
+        @if($message = Session::get('success'))
             <div class="alert alert-sucess mt-2">
-                {{ $message }}
+                {{$message}}
             </div>
         @endif
+   
+    @if($noticias->count())
+    <div class="container">
         <table class="table table-bordered mt-2">
             <tr>
                 <th>ID</th>
@@ -31,24 +35,31 @@
                 <th>URL</th>
             </tr>
             @foreach ($noticias as $noticia)
-            <tr>
+                <tr>
                     <td>{{ $noticia->id }}</td>
                     <td>{{ $noticia->titulo }}</td>
                     <td>{{ $noticia->descricao }}</td>
-                    <td><a href="{{ $noticia->url }}" target="_blank">{{ $noticia->url }} </a></td>
+                    <td><a href="{{ $noticia->url}}" target="_blank">{{ $noticia->url }}</a></td>
                     <td>
-                        <a class="btn btn-info" href="{{ route('noticias.show', $noticia->id)}}">Ver</a>
-                        <a class="btn btn-alert" href="{{ route('noticias.edit', $noticia->id)}}">Editar</a>
-                        <form action="{{ route('noticias.destroy', $noticia->id)}}" method="POST">
+                            <a class="btn btn-info" href="{{ route('noticias.show',$noticia->id)}}">Ver</a>
+                            <a class="btn btn-primary" href="{{ route('noticias.edit',$noticia->id)}}">Editar</a>
+                        <form action="{{ route('noticias.destroy',$noticia->id)}}" method="POST">
+                            
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">
-                            </form>
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
                     </td>
-            </tr>
+                </tr>
             @endforeach
-
-
-
+        </table>
+        <div class= "d-flex justify-content-center mt-3">
+            {{ $noticias->links() }}
+        </div>
+        @else
+            <p> Nenhuma notícia encontrada </p>
+        @endif
     </div>
+ </div>
 </x-app-layout>
+
