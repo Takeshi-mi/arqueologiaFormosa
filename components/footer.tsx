@@ -9,12 +9,15 @@ interface FooterProps {
 
 const Footer: NextPage<FooterProps> = ({ className = "" }) => {
   return (
-    <div className={`w-full bg-[rgba(17,24,39,1)] text-white p-10 ${className}`}>
+    <div
+      className={`w-full bg-[rgba(17,24,39,1)] text-gray-400 p-10 ${className}`}
+    >
       <section className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
         <div className="flex flex-col gap-6">
           <Logo />
           <p className="text-base">
-            Preservando e compartilhando o patrimônio arqueológico de Goiás.
+            Preservando e compartilhando o <br />
+            patrimônio arqueológico de Goiás.
           </p>
         </div>
         <div className="flex flex-col gap-6">
@@ -46,40 +49,56 @@ const Footer: NextPage<FooterProps> = ({ className = "" }) => {
         <div className="flex flex-col gap-6">
           <h3 className="text-lg font-semibold">Redes Sociais</h3>
           <div className="flex gap-4">
-            <Image
+            <a
+              href="https://www.youtube.com/watch?v"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                className="h-5 w-5"
+                loading="lazy"
+                width={20}
+                height={20}
+                alt="Youtube"
+                src="/images/Youtube.svg"
+              />
+            </a>
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                className="h-5 w-5"
+                loading="lazy"
+                width={20}
+                height={20}
+                alt="Instagram"
+                src="/images/Instagram.svg"
+              />
+            </a>
+            {/* <Image
               className="h-5 w-5"
               loading="lazy"
               width={20}
               height={20}
-              alt="Facebook"
-              src="/frame-3.svg"
-            />
-            <Image
-              className="h-5 w-5"
-              loading="lazy"
-              width={20}
-              height={20}
-              alt="Twitter"
-              src="/frame-4.svg"
-            />
-            <Image
-              className="h-5 w-5"
-              loading="lazy"
-              width={20}
-              height={20}
-              alt="Instagram"
+              alt="NomeDaRede"
               src="/frame-5.svg"
-            />
+            /> */}
           </div>
         </div>
       </section>
       <hr className="border-gray-700 my-6" />
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm">
         <p className="text-center md:text-left w-full md:w-auto">
-          © {new Date().getFullYear()} <Logo />. Todos os direitos reservados.
+          © {new Date().getFullYear()} Arqueologia Formosa. Todos os direitos
+          reservados.
         </p>
         <p className="text-right w-full md:w-auto">
-          Feito por <span className="font-agbalumo">Takeshi Miura</span>
+          Feito por{" "}
+          <strong>
+            <span className="font-agbalumo">Takeshi</span>
+          </strong>
         </p>
       </div>
     </div>
