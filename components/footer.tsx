@@ -1,62 +1,89 @@
+import type { NextPage } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import Logo from "@/components/logo";
 
-const navItems = [
-  {
-    label: "Home",
-    href: "/",
-    target: false,
-  },
-  {
-    label: "Blog",
-    href: "/blog",
-    target: false,
-  },
-  {
-    label: "About",
-    href: "/about",
-    target: false,
-  },
-];
+interface FooterProps {
+  className?: string;
+}
 
-export default function Footer() {
-  const getCurrentYear = () => {
-    return new Date().getFullYear();
-  };
-
+const Footer: NextPage<FooterProps> = ({ className = "" }) => {
   return (
-    <footer>
-      <div className="conrtainer dark:bg-background pb-5 xl:pb-5 dark:text-gray-300">
-        <Link
-          className="block w-[6.25rem] mx-auto"
-          href="/"
-          aria-label="Home page"
-        >
+    <div className={`w-full bg-[rgba(17,24,39,1)] text-white p-10 ${className}`}>
+      <section className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12">
+        <div className="flex flex-col gap-6">
           <Logo />
-        </Link>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-7 text-primary">
-          {navItems.map((navItem) => (
-            <Link
-              key={navItem.label}
-              href={navItem.href}
-              target={navItem.target ? "_blank" : undefined}
-              rel={navItem.target ? "noopener noreferrer" : undefined}
-              className="transition-colors hover:text-foreground/80 text-foreground/60 text-sm"
-            >
-              {navItem.label}
-            </Link>
-          ))}
-        </div>
-        <div className="mt-8 flex flex-col lg:flex-row gap-6 justify-center text-center lg:mt-5 text-xs border-t pt-8">
-          <p className="text-foreground/60">
-            &copy; {getCurrentYear()} Built by{" "}
-            <Link href="https://x.com/serge_0v" target="_blank" rel="noopener">
-              @serge_0v
-            </Link>
-            .
+          <p className="text-base">
+            Preservando e compartilhando o patrimônio arqueológico de Goiás.
           </p>
         </div>
+        <div className="flex flex-col gap-6">
+          <h3 className="text-lg font-semibold">Links Rápidos</h3>
+          <nav className="flex flex-col gap-2">
+            <Link href="/" className="hover:underline">
+              Início
+            </Link>
+            <Link href="/sitios-arqueologicos" className="hover:underline">
+              Sítios
+            </Link>
+            <Link href="/trabalhos-escritos" className="hover:underline">
+              Trabalhos escritos
+            </Link>
+            <Link href="/blog" className="hover:underline">
+              Blog
+            </Link>
+            <Link href="/contato" className="hover:underline">
+              Contate-nos
+            </Link>
+          </nav>
+        </div>
+        <div className="flex flex-col gap-6">
+          <h3 className="text-lg font-semibold">Contato</h3>
+          <p>arqueologiaformosa@gmail.com</p>
+          <p>(61) 98164-2468</p>
+          <p>Formosa, GO</p>
+        </div>
+        <div className="flex flex-col gap-6">
+          <h3 className="text-lg font-semibold">Redes Sociais</h3>
+          <div className="flex gap-4">
+            <Image
+              className="h-5 w-5"
+              loading="lazy"
+              width={20}
+              height={20}
+              alt="Facebook"
+              src="/frame-3.svg"
+            />
+            <Image
+              className="h-5 w-5"
+              loading="lazy"
+              width={20}
+              height={20}
+              alt="Twitter"
+              src="/frame-4.svg"
+            />
+            <Image
+              className="h-5 w-5"
+              loading="lazy"
+              width={20}
+              height={20}
+              alt="Instagram"
+              src="/frame-5.svg"
+            />
+          </div>
+        </div>
+      </section>
+      <hr className="border-gray-700 my-6" />
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-sm">
+        <p className="text-center md:text-left w-full md:w-auto">
+          © {new Date().getFullYear()} <Logo />. Todos os direitos reservados.
+        </p>
+        <p className="text-right w-full md:w-auto">
+          Feito por <span className="font-agbalumo">Takeshi Miura</span>
+        </p>
       </div>
-    </footer>
+    </div>
   );
-}
+};
+
+export default Footer;
