@@ -6,8 +6,13 @@ import { ModeToggle } from "@/components/menu-toggle";
 
 const navItems = [
   {
-    label: "Home",
-    href: "/",
+    label: "Sítios arqueológicos",
+    href: "/sitios-arqueologicos",
+    target: false,
+  },
+  {
+    label: "Trabalhos escritos",
+    href: "/trabalhos-escritos",
     target: false,
   },
   {
@@ -16,8 +21,8 @@ const navItems = [
     target: false,
   },
   {
-    label: "About",
-    href: "/about",
+    label: "Contato",
+    href: "/contato",
     target: false,
   },
 ];
@@ -26,15 +31,21 @@ export default function Header() {
   return (
     <header className="sticky top-0 w-full border-border/40 bg-background/95 z-50">
       <div className="container flex items-center justify-between h-14">
-        <Link href="/" aria-label="Home page">
-          <Logo />
-        </Link>
-        <div className="hidden xl:flex gap-7 items-center justify-between">
-          <DesktopNav navItems={navItems} />
+        <div className="flex-1 flex justify-start gap-7 items-center">
+          <DesktopNav navItems={navItems.slice(0, 2)} />
+        </div>
+        <div className="flex-1 flex justify-center">
+          <Link href="/" aria-label="Home page">
+            <Logo />
+          </Link>
+        </div>
+        <div className="flex-1 flex justify-end gap-7 items-center">
+          <DesktopNav navItems={navItems.slice(2)} />
           <ModeToggle />
         </div>
+        
         <div className="flex items-center xl:hidden">
-          <ModeToggle />
+          {/* <ModeToggle /> */}
           <MobileNav navItems={navItems} />
         </div>
       </div>
