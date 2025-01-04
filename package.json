@@ -23,6 +23,7 @@
     "@sanity/orderable-document-list": "^1.2.2",
     "@sanity/preview-url-secret": "^2.0.5",
     "@sanity/vision": "^3.68.3",
+    "@vercel/speed-insights": "^1.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.5.1",
