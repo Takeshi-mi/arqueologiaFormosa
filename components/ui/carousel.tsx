@@ -18,6 +18,7 @@ type CarouselProps = {
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
+  loop?: boolean; 
 };
 
 type CarouselContextProps = {
@@ -53,20 +54,24 @@ const Carousel = React.forwardRef<
       plugins,
       className,
       children,
+      loop = true, // Define o valor padrão para loop como true
       ...props
     },
     ref
   ) => {
+    // Inicializa o carrossel com as opções fornecidas
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
+        loop, // Passa a opção de loop para o useEmblaCarousel
       },
       plugins
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 
+    // Callback para atualizar o estado de scroll
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
         return;
@@ -76,6 +81,7 @@ const Carousel = React.forwardRef<
       setCanScrollNext(api.canScrollNext());
     }, []);
 
+    // Funções para scroll anterior e próximo
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev();
     }, [api]);
@@ -84,6 +90,7 @@ const Carousel = React.forwardRef<
       api?.scrollNext();
     }, [api]);
 
+    // Função para lidar com eventos de teclado
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
         if (event.key === "ArrowLeft") {
@@ -97,6 +104,7 @@ const Carousel = React.forwardRef<
       [scrollPrev, scrollNext]
     );
 
+    // Efeito para definir a API do carrossel
     React.useEffect(() => {
       if (!api || !setApi) {
         return;
@@ -105,6 +113,7 @@ const Carousel = React.forwardRef<
       setApi(api);
     }, [api, setApi]);
 
+    // Efeito para atualizar o estado de scroll quando o carrossel é inicializado ou selecionado
     React.useEffect(() => {
       if (!api) {
         return;
@@ -149,6 +158,7 @@ const Carousel = React.forwardRef<
 );
 Carousel.displayName = "Carousel";
 
+// Componente para o conteúdo do carrossel
 const CarouselContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -171,6 +181,7 @@ const CarouselContent = React.forwardRef<
 });
 CarouselContent.displayName = "CarouselContent";
 
+// Componente para cada item do carrossel
 const CarouselItem = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -193,6 +204,7 @@ const CarouselItem = React.forwardRef<
 });
 CarouselItem.displayName = "CarouselItem";
 
+// Componente para o botão de scroll anterior
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
@@ -222,6 +234,7 @@ const CarouselPrevious = React.forwardRef<
 });
 CarouselPrevious.displayName = "CarouselPrevious";
 
+// Componente para o botão de scroll próximo
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
@@ -251,6 +264,7 @@ const CarouselNext = React.forwardRef<
 });
 CarouselNext.displayName = "CarouselNext";
 
+// Componente para os pontos de navegação do carrossel
 const CarouselDots = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
@@ -305,6 +319,7 @@ const CarouselDots = React.forwardRef<
 });
 CarouselDots.displayName = "CarouselDots";
 
+// Componente para o contador de slides do carrossel
 const CarouselCounter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -343,6 +358,7 @@ const CarouselCounter = React.forwardRef<
 
 CarouselCounter.displayName = "CarouselCounter";
 
+// Exporta todos os componentes do carrossel
 export {
   type CarouselApi,
   Carousel,

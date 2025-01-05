@@ -13,24 +13,29 @@ import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils";
 
+// Define os tamanhos do carrossel para diferentes números de itens
 const CAROUSEL_SIZES = {
   one: "basis-full",
   two: "basis-full md:basis-1/2",
   three: "basis-full md:basis-1/2 lg:basis-1/3",
 } as const;
 
+// Define os tamanhos das imagens para diferentes números de itens
 const IMAGE_SIZES = {
   one: "h-[30rem] sm:h-[40rem] lg:h-[31.25rem] xl:h-[35rem]",
   two: "h-[30rem] md:h-[22rem] lg:h-[30rem] xl:h-[35rem]",
   three: "h-[30rem] md:h-[20rem] xl:h-[25rem]",
 } as const;
 
+// Define o tipo para o tamanho do carrossel
 type CarouselSize = keyof typeof CAROUSEL_SIZES;
 
+// Define as propriedades aceitas pelo componente Carousel1
 interface Carousel1Props {
   padding: {
     top: boolean;
     bottom: boolean;
+    left: boolean;
   };
   colorVariant:
     | "primary"
@@ -43,8 +48,10 @@ interface Carousel1Props {
   size: CarouselSize;
   indicators: "none" | "dots" | "count";
   images?: Sanity.Image[];
+
 }
 
+// Componente principal do carrossel
 export default function Carousel1({
   padding,
   colorVariant,
@@ -52,13 +59,15 @@ export default function Carousel1({
   indicators = "none",
   images,
 }: Partial<Carousel1Props>) {
+  // Limpa a cor e os indicadores usando a função stegaClean
   const color = stegaClean(colorVariant);
   const stegaIndicators = stegaClean(indicators);
 
   return (
     <SectionContainer color={color} padding={padding}>
       {images && images.length > 0 && (
-        <Carousel>
+        // Componente Carousel com loop habilitado
+        <Carousel loop={true}>
           <CarouselContent>
             {images.map((image, index) => (
               <CarouselItem
