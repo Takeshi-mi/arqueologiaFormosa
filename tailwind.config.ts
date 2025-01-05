@@ -1,24 +1,26 @@
-import type { Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
-import plugin from "tailwindcss/plugin";
+import type { Config } from "tailwindcss"; // Importa o tipo Config do Tailwind CSS
+import { fontFamily } from "tailwindcss/defaultTheme"; // Importa a configuração de fontes padrão do Tailwind CSS
+import plugin from "tailwindcss/plugin"; // Importa a função plugin do Tailwind CSS
 
 const config = {
   darkMode: ["class"],
   content: [
-    "./pages/**/*.{ts,tsx}",
+    "./pages/**/*.{ts,tsx}", // Define os caminhos dos arquivos onde o Tailwind CSS deve procurar classes
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
   ],
-  // dynamic safelist for grid-cols and colors
+  // Lista de classes que devem ser incluídas no build final, mesmo que não sejam encontradas nos arquivos de conteúdo
   safelist: [
     "bg-background",
     "bg-primary",
     "bg-secondary",
     "bg-card",
     "bg-accent",
-    "bg-descturctive",
+    "bg-destructive", 
     "bg-muted",
+    "bg-black", 
+    "bg-creme",
     "lg:grid-cols-2",
     "lg:grid-cols-3",
     "lg:grid-cols-4",
@@ -26,7 +28,7 @@ const config = {
   prefix: "",
   theme: {
     corePlugins: {
-      container: "false",
+      container: false, // Desabilita o plugin container do Tailwind CSS
     },
     extend: {
       fontFamily: {
@@ -39,6 +41,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        creme: "hsl(var(--creme))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -67,6 +70,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        black: '#000000', // Define a cor preta
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -8,6 +8,8 @@ export const COLOR_VARIANTS = [
   { title: "Accent", value: "accent" },
   { title: "Destructive", value: "destructive" },
   { title: "Muted", value: "muted" },
+  { title: "Black", value: "black" },
+  { title: "Creme", value: "creme" },
 ];
 
 export const colorVariant = defineType({
