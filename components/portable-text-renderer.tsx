@@ -1,10 +1,12 @@
 import { PortableText, PortableTextProps } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
 
 const portableTextComponents: PortableTextProps["components"] = {
   types: {
     image: ({ value }) => {
+      if (!value.asset) return null;
       const { url, metadata } = value.asset;
       const { lqip, dimensions } = metadata;
       return (
@@ -74,7 +76,9 @@ const portableTextComponents: PortableTextProps["components"] = {
           listStylePosition: "inside",
         }}
       >
-        {children}
+        {React.Children.map(children, (child, index) => (
+          <li key={index}>{child}</li>
+        ))}
       </ul>
     ),
     number: ({ children }) => (
@@ -86,7 +90,9 @@ const portableTextComponents: PortableTextProps["components"] = {
           listStylePosition: "inside",
         }}
       >
-        {children}
+        {React.Children.map(children, (child, index) => (
+          <li key={index}>{child}</li>
+        ))}
       </ol>
     ),
   },
