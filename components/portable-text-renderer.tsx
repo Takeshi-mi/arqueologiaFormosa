@@ -7,8 +7,17 @@ const portableTextComponents: PortableTextProps["components"] = {
   types: {
     image: ({ value }) => {
       if (!value.asset) return null;
+
       const { url, metadata } = value.asset;
+
+      // Verifique a existência de 'metadata', 'lqip', e 'dimensions'
+      if (!metadata || !metadata.dimensions || !metadata.lqip) {
+        console.warn("Metadata incompleto para a imagem", value.asset);
+        return null;
+      }
+
       const { lqip, dimensions } = metadata;
+
       return (
         <Image
           src={url}
@@ -27,6 +36,7 @@ const portableTextComponents: PortableTextProps["components"] = {
       );
     },
   },
+
   block: {
     normal: ({ children }) => (
       <p style={{ marginBottom: "1rem" }}>{children}</p>
