@@ -70,7 +70,7 @@ export default function Hero1({
           {image && image.asset?._id && (
             <Image
               className="rounded-xl"
-              src={urlFor(image.asset).url()}
+              src={urlFor(image.asset)?.url() || "/images/placeholder.svg"}
               alt={image.alt || ""}
               width={image.asset?.metadata?.dimensions?.width || 800}
               height={image.asset?.metadata?.dimensions?.height || 800}
