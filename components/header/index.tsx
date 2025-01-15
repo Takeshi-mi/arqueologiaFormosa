@@ -7,7 +7,7 @@ import { ModeToggle } from "@/components/menu-toggle";
 const navItems = [
   {
     label: "Sítios arqueológicos",
-    href: "#sitios-arqueologicos",
+    href: "/sitios-arqueologicos",
     target: false,
   },
   {

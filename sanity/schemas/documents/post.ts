@@ -23,7 +23,7 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Título",
       type: "string",
       group: "content",
       validation: (Rule) => Rule.required(),
@@ -105,6 +105,13 @@ export default defineType({
       title: "Open Graph Image - [1200x630]",
       type: "image",
       group: "seo",
+    }),
+
+    defineField({
+      name: "cta",
+      title: "Call to Action",
+      type: "cta-1",
+      group: "content",
     }),
   ],
 
