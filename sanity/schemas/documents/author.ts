@@ -37,7 +37,7 @@ export default defineType({
     orderRankField({ type: "author" }),
   ],
   preview: {
-    select: {
+    select: { 
       title: "name",
       media: "image",
     },
