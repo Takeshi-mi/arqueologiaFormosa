@@ -97,7 +97,9 @@ const Footer: NextPage<FooterProps> = ({ className = "" }) => {
         <p className="text-right w-full md:w-auto">
           Feito por{" "}
           <strong>
-            <span className="font-agbalumo">Takeshi</span>
+            <span className="font-agbalumo">
+              <a className="relative text-sm w-fit after:block after:content-[''] after:h-[1px] after:bg-white after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-right" href="https://www.linkedin.com/in/e-takeshimiura/" target="_blank">Takeshi</a>
+            </span>
           </strong>
         </p>
       </div>
