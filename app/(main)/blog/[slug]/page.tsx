@@ -49,7 +49,7 @@ export default async function PostPage(props: {
           href: "/",
         },
         {
-          label: "Blog",
+          label: "Trabalhos Escritos",
           href: "/blog",
         },
         {
