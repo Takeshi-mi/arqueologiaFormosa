@@ -7,13 +7,13 @@ export const structure = (S: any, context: any) =>
     .items([
       orderableDocumentListDeskItem({
         type: "page",
-        title: "Pages",
+        title: "Páginas",
         icon: Files,
         S,
         context,
       }),
       S.listItem()
-        .title("Posts")
+        .title("Publicações")
         .schemaType("post")
         .child(
           S.documentTypeList("post")
@@ -22,14 +22,14 @@ export const structure = (S: any, context: any) =>
         ),
       orderableDocumentListDeskItem({
         type: "category",
-        title: "Categories",
+        title: "Categorias",
         icon: BookA,
         S,
         context,
       }),
       orderableDocumentListDeskItem({
         type: "author",
-        title: "Authors",
+        title: "Autores",
         icon: User,
         S,
         context,
@@ -43,7 +43,7 @@ export const structure = (S: any, context: any) =>
       }),
       orderableDocumentListDeskItem({
         type: "testimonial",
-        title: "Testimonials",
+        title: "Avaliações",
         icon: Quote,
         S,
         context,

@@ -4,7 +4,7 @@ import { BookA } from "lucide-react";
 
 export default defineType({
   name: "category",
-  title: "Category",
+  title: "Categoria",
   type: "document",
   icon: BookA,
   fields: [

@@ -3,12 +3,12 @@ import { orderRankField } from "@sanity/orderable-document-list";
 
 export default defineType({
   name: "author",
-  title: "Author",
+  title: "Autor",
   type: "document",
   fields: [
     defineField({
       name: "name",
-      title: "Name",
+      title: "Nome",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -24,7 +24,7 @@ export default defineType({
     }),
     defineField({
       name: "image",
-      title: "Image",
+      title: "Imagem",
       type: "image",
       fields: [
         {

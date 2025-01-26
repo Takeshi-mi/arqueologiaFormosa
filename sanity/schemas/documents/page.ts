@@ -5,7 +5,7 @@ import { orderRankField } from "@sanity/orderable-document-list";
 export default defineType({
   name: "page",
   type: "document",
-  title: "Page",
+  title: "Página",
   icon: Files,
   groups: [
     {
