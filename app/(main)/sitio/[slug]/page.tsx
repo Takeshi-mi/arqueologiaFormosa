@@ -3,6 +3,7 @@ import { generatePageMetadata } from "@/lib/metadata";
 import MissingSanityPage from "@/components/ui/missing-sanity-page";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SITIO_QUERY } from "@/sanity/queries/sitio";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 export const dynamic = "force-static";
 
@@ -34,5 +35,25 @@ export default async function SitioPage({ params }: Props) {
     return MissingSanityPage({ document: "sitio", slug: params.slug });
   }
 
-  return <Blocks blocks={sitio?.blocks} />;
+  return (
+    <>
+      <Breadcrumb
+        items={[
+          {
+            label: "Home",
+            href: "/",
+          },
+          {
+            label: "Sítios Arqueológicos",
+            href: "/sitio/sitios-arqueologicos",
+          },
+          {
+            label: sitio.title,
+            href: `/sitio/${params.slug}`,
+          },
+        ]}
+      />
+      <Blocks blocks={sitio?.blocks} />
+    </>
+  );
 } 

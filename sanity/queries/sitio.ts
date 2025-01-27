@@ -13,6 +13,7 @@ import { formNewsletterQuery } from "./forms/newsletter";
 
 export const SITIO_QUERY = groq`
   *[_type == "sitio" && slug.current == $slug][0]{
+    title,
     blocks[]{
       ${hero1Query}
       ${sectionHeaderQuery}
