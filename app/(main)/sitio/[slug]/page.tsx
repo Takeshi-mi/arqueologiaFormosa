@@ -4,14 +4,12 @@ import MissingSanityPage from "@/components/ui/missing-sanity-page";
 import { sanityFetch } from "@/sanity/lib/live";
 import { SITIO_QUERY } from "@/sanity/queries/sitio";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
 async function fetchSanitySitioBySlug({ slug }: { slug: string }) {
   const { data } = await sanityFetch({
@@ -22,13 +20,20 @@ async function fetchSanitySitioBySlug({ slug }: { slug: string }) {
   return data;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata(props: {
+  params: Params;
+  searchParams: SearchParams;
+}): Promise<Metadata> {
+  const params = await props.params;
   const sitio = await fetchSanitySitioBySlug({ slug: params.slug });
-
   return generatePageMetadata({ page: sitio, slug: params.slug });
 }
 
-export default async function SitioPage({ params }: Props) {
+export default async function SitioPage(props: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const params = await props.params;
   const sitio = await fetchSanitySitioBySlug({ slug: params.slug });
 
   if (!sitio) {
