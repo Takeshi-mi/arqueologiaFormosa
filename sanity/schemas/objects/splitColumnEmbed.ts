@@ -54,17 +54,13 @@ export default defineType({
     defineField({
       name: "embedCode",
       title: "Código do Embed",
-      description: "Cole aqui o código HTML do embed (iframe do Sketchfab ou mapa)",
+      description: "Cole aqui o código HTML do embed (iframe do YouTube, Sketchfab, mapas, ou qualquer outro embed que você queira usar)",
       type: "text",
       validation: (Rule) =>
         Rule.custom((text) => {
           if (!text) return true;
-          // Verifica se contém um iframe e se é do Sketchfab ou parece ser um mapa
-          if (
-            !text.includes("<iframe") ||
-            (!text.includes("sketchfab.com") && !text.includes("map"))
-          ) {
-            return "O código deve conter um iframe do Sketchfab ou um mapa";
+          if (!text.includes("<iframe")) {
+            return "O código deve conter um iframe válido";
           }
           return true;
         }),
