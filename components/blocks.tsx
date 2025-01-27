@@ -1,6 +1,7 @@
 import Hero1 from "@/components/ui/hero/hero-1";
 import SectionHeader from "@/components/ui/section-header";
 import SplitRow from "@/components/ui/split/split-row";
+import SplitRowEmbed from "@/components/ui/split/split-row-embed";
 import GridRow from "@/components/ui/grid/grid-row";
 import Carousel1 from "@/components/ui/carousel/carousel-1";
 import Carousel2 from "@/components/ui/carousel/carousel-2";
@@ -14,6 +15,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
   "hero-1": Hero1,
   "section-header": SectionHeader,
   "split-row": SplitRow,
+  "split-row-embed": SplitRowEmbed,
   "grid-row": GridRow,
   "carousel-1": Carousel1,
   "carousel-2": Carousel2,

@@ -19,6 +19,8 @@ import hero1 from "./schemas/blocks/hero/hero-1";
 import sectionHeader from "./schemas/blocks/section-header";
 import splitColumn from "./schemas/blocks/split/split-column";
 import splitRow from "./schemas/blocks/split/split-row";
+import splitRowEmbed from "./schemas/objects/split-row-embed";
+import splitColumnEmbed from "./schemas/objects/splitColumnEmbed";
 import gridCard from "./schemas/blocks/grid/grid-card";
 import pricingCard from "./schemas/blocks/grid/pricing-card";
 import gridPost from "./schemas/blocks/grid/grid-post";
@@ -53,6 +55,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     sectionHeader,
     splitColumn,
     splitRow,
+    splitRowEmbed,
+    splitColumnEmbed,
     gridCard,
     pricingCard,
     gridPost,

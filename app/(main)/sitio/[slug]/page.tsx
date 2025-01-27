@@ -8,8 +8,9 @@ import { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-type Params = Promise<{ slug: string }>;
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+interface PageParams {
+  slug: string;
+}
 
 async function fetchSanitySitioBySlug({ slug }: { slug: string }) {
   const { data } = await sanityFetch({
@@ -20,20 +21,12 @@ async function fetchSanitySitioBySlug({ slug }: { slug: string }) {
   return data;
 }
 
-export async function generateMetadata(props: {
-  params: Params;
-  searchParams: SearchParams;
-}): Promise<Metadata> {
-  const params = await props.params;
+export async function generateMetadata({ params }: { params: PageParams }): Promise<Metadata> {
   const sitio = await fetchSanitySitioBySlug({ slug: params.slug });
   return generatePageMetadata({ page: sitio, slug: params.slug });
 }
 
-export default async function SitioPage(props: {
-  params: Params;
-  searchParams: SearchParams;
-}) {
-  const params = await props.params;
+export default async function SitioPage({ params }: { params: PageParams }) {
   const sitio = await fetchSanitySitioBySlug({ slug: params.slug });
 
   if (!sitio) {

@@ -2,6 +2,7 @@ import { groq } from "next-sanity";
 import { hero1Query } from "./hero/hero-1";
 import { sectionHeaderQuery } from "./section-header";
 import { splitRowQuery } from "./split-row";
+import { splitRowEmbedQuery } from "./split-row-embed";
 import { gridRowQuery } from "./grid/grid-row";
 import { carousel1Query } from "./carousel/carousel-1";
 import { carousel2Query } from "./carousel/carousel-2";
@@ -17,6 +18,7 @@ export const PAGE_QUERY = groq`
       ${hero1Query}
       ${sectionHeaderQuery}
       ${splitRowQuery}
+      ${splitRowEmbedQuery}
       ${gridRowQuery}
       ${carousel1Query}
       ${carousel2Query}
