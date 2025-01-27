@@ -8,9 +8,9 @@ import { Breadcrumb } from "@/components/breadcrumb";
 export const dynamic = "force-static";
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 async function fetchSanitySitioBySlug({ slug }: { slug: string }) {
