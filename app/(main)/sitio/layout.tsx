@@ -1,13 +1,13 @@
 import { Breadcrumb } from "@/components/breadcrumb";
 
-interface SitioLayoutProps {
+type SitioLayoutProps = {
   children: React.ReactNode;
   params: {
     slug: string;
   };
 }
 
-export default function SitioLayout({ children }: SitioLayoutProps) {
+export default function SitioLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="container py-8">
       {children}
