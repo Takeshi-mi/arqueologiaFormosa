@@ -5,12 +5,12 @@ import { orderRankField } from "@sanity/orderable-document-list";
 export default defineType({
   name: "sitio",
   type: "document",
-  title: "Página",
+  title: "Sítio Arqueológico",
   icon: Files,
   groups: [
     {
       name: "content",
-      title: "Content",
+      title: "Conteúdo",
     },
     {
       name: "seo",
@@ -18,7 +18,7 @@ export default defineType({
     },
     {
       name: "settings",
-      title: "Settings",
+      title: "Configurações",
     },
   ],
   fields: [
@@ -77,6 +77,6 @@ export default defineType({
       type: "image",
       group: "seo",
     }),
-    orderRankField({ type: "page" }),
+    orderRankField({ type: "sitio" }),
   ],
 });
