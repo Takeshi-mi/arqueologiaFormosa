@@ -7,11 +7,18 @@ export const splitRowEmbedQuery = groq`
     colorVariant,
     splitColumns[]{
       position,
+      titlePosition,
       tagLine,
       title,
+      titleDescription,
       body,
       embedCode,
-      link,
+      link {
+        title,
+        href,
+        target,
+        buttonVariant
+      },
     },
   },
 `; 

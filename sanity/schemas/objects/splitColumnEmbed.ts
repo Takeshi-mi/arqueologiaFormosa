@@ -6,6 +6,18 @@ export default defineType({
   type: "object",
   fields: [
     defineField({
+      name: "titlePosition",
+      title: "Posição do Título",
+      type: "string",
+      options: {
+        list: [
+          { title: "Junto ao conteúdo", value: "content" },
+          { title: "No topo", value: "top" },
+        ],
+      },
+      initialValue: "content",
+    }),
+    defineField({
       name: "position",
       title: "Posição do Conteúdo",
       type: "string",
@@ -25,6 +37,13 @@ export default defineType({
       name: "title",
       title: "Título",
       type: "string",
+    }),
+    defineField({
+      name: "titleDescription",
+      title: "Descrição do Título",
+      description: "Texto adicional que aparece abaixo do título quando ele está no topo",
+      type: "text",
+      hidden: ({ parent }) => parent?.titlePosition !== "top",
     }),
     defineField({
       name: "body",
@@ -56,14 +75,34 @@ export default defineType({
       type: "object",
       fields: [
         {
-          name: "label",
-          title: "Label",
+          name: "title",
+          title: "Texto do Botão",
           type: "string",
         },
         {
           name: "href",
           title: "URL",
           type: "string",
+        },
+        {
+          name: "target",
+          title: "Abrir em nova aba",
+          type: "boolean",
+        },
+        {
+          name: "buttonVariant",
+          title: "Estilo do Botão",
+          type: "string",
+          options: {
+            list: [
+              { title: "Padrão", value: "default" },
+              { title: "Secundário", value: "secondary" },
+              { title: "Link", value: "link" },
+              { title: "Destrutivo", value: "destructive" },
+              { title: "Outline", value: "outline" },
+              { title: "Ghost", value: "ghost" },
+            ],
+          },
         },
       ],
     }),
