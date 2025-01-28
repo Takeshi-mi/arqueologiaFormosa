@@ -74,6 +74,32 @@ declare global {
       _key: string;
       uid?: string;
     };
+
+    export interface TrabalhoEscrito extends SanityDocument {
+      _type: "trabalho-escrito";
+      title: string;
+      slug: Slug;
+      excerpt?: string;
+      authors: Author[];
+      tipos: TipoTrabalho[];
+      sitios?: Sitio[];
+      publishedAt?: string;
+      image?: Image;
+      categories?: Category[];
+      body?: Block[];
+      buttons?: Link[];
+      meta_title?: string;
+      meta_description?: string;
+      noindex?: boolean;
+      ogImage?: Image;
+    }
+
+    export interface TipoTrabalho extends SanityDocument {
+      _type: "tipo-trabalho";
+      title: string;
+      description?: string;
+      orderRank?: number;
+    }
   }
 }
 

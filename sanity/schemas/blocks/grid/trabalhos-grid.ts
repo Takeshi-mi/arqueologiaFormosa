@@ -2,11 +2,16 @@ import { defineField, defineType } from "sanity";
 import { Grid } from "lucide-react";
 
 export default defineType({
-  name: "grid-row",
-  title: "Grid",
+  name: "trabalhos-grid",
+  title: "Grid de Trabalhos",
   type: "object",
   icon: Grid,
   fields: [
+    defineField({
+      name: "title",
+      title: "Título da Seção",
+      type: "string",
+    }),
     defineField({
       name: "colorVariant",
       title: "Cor do Fundo",
@@ -44,40 +49,28 @@ export default defineType({
       ],
     }),
     defineField({
-      name: "gridColumns",
-      title: "Colunas do Grid",
-      type: "string",
-      options: {
-        list: [
-          { title: "2 Colunas", value: "grid-cols-2" },
-          { title: "3 Colunas", value: "grid-cols-3" },
-          { title: "4 Colunas", value: "grid-cols-4" },
-        ],
-      },
-      initialValue: "grid-cols-3",
-    }),
-    defineField({
-      name: "columns",
-      title: "Colunas",
+      name: "trabalhos",
+      title: "Trabalhos",
       type: "array",
       of: [
-        { type: "grid-card" },
-        { type: "grid-post" },
-        { type: "pricing-card" },
-        { type: "grid-trabalho" },
+        {
+          type: "reference",
+          to: [{ type: "trabalho-escrito" }],
+        },
       ],
     }),
   ],
   preview: {
     select: {
-      columns: "columns",
+      title: "title",
+      trabalhos: "trabalhos",
     },
-    prepare({ columns = [] }) {
+    prepare({ title, trabalhos = [] }) {
       return {
-        title: "Grid",
-        subtitle: `${columns.length} coluna(s)`,
+        title: title || "Grid de Trabalhos",
+        subtitle: `${trabalhos.length} trabalho(s)`,
         media: Grid,
       };
     },
   },
-});
+}); 

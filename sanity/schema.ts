@@ -39,6 +39,8 @@ import embedContainer from './schemas/objects/embed-container'
 import buttonContainer from './schemas/objects/button-container';
 import featureCard from './schemas/objects/feature-card';
 import featureCards from './schemas/objects/feature-cards';
+import trabalhosGrid from "./schemas/blocks/grid/trabalhos-grid";
+import gridTrabalho from "./schemas/blocks/grid/grid-trabalho";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -81,5 +83,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     buttonContainer,
     featureCard,
     featureCards,
+    trabalhosGrid,
+    gridTrabalho,
   ],
 };
