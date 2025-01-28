@@ -7,6 +7,8 @@ import category from "./schemas/documents/category";
 import faq from "./schemas/documents/faq";
 import testimonial from "./schemas/documents/testimonial";
 import sitio from "./schemas/documents/sitio";
+import trabalhoEscrito from "./schemas/documents/trabalho-escrito";
+import tipoTrabalho from "./schemas/documents/tipo-trabalho";
 
 // Schema UI shared objects
 import blockContent from "./schemas/blocks/shared/block-content";
@@ -44,6 +46,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faq,
     testimonial,
     sitio,
+    trabalhoEscrito,
+    tipoTrabalho,
     // shared objects
     blockContent,
     link,

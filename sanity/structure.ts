@@ -1,5 +1,5 @@
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
-import { Files, BookA, User, ListCollapse, Quote, Landmark } from "lucide-react";
+import { Files, BookA, User, ListCollapse, Quote, Landmark, FileText, BookText } from "lucide-react";
 
 export const structure = (S: any, context: any) =>
   S.list()
@@ -27,6 +27,22 @@ export const structure = (S: any, context: any) =>
             .title("Post")
             .defaultOrdering([{ field: "_createdAt", direction: "desc" }]) // Default ordering
         ),
+      S.listItem()
+        .title("Trabalhos Escritos")
+        .schemaType("trabalho-escrito")
+        .icon(FileText)
+        .child(
+          S.documentTypeList("trabalho-escrito")
+            .title("Trabalhos Escritos")
+            .defaultOrdering([{ field: "publishedAt", direction: "desc" }])
+        ),
+      orderableDocumentListDeskItem({
+        type: "tipo-trabalho",
+        title: "Tipos de Trabalho",
+        icon: BookText,
+        S,
+        context,
+      }),
       orderableDocumentListDeskItem({
         type: "category",
         title: "Categorias",
