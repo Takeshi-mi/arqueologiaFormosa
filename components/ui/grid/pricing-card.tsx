@@ -4,30 +4,53 @@ import { stegaClean } from "next-sanity";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Check } from "lucide-react";
+import Image from "next/image";
+import { urlForImage } from "@/sanity/lib/image";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
 
-interface PricingCardProps {
-  color:
-    | "primary"
-    | "secondary"
-    | "card"
-    | "accent"
-    | "destructive"
-    | "background"
-    | "transparent";
-  title: string;
-  tagLine: string;
-  excerpt: string;
-  price: {
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
+
+export interface PricingCardProps {
+  _type?: string;
+  _key?: string;
+  colorVariant?: "primary" | "secondary" | "card" | "accent" | "destructive" | "background" | "transparent";
+  title?: string;
+  tagLine?: string;
+  excerpt?: string;
+  price?: {
     value: number;
     period: string;
   };
-  list: string[];
-  image: Sanity.Image;
-  link: {
+  list?: string[];
+  image?: SanityImage;
+  link?: {
     title: string;
     href: string;
     target?: boolean;
-    buttonVariant:
+    buttonVariant?:
       | "default"
       | "secondary"
       | "link"
@@ -40,7 +63,7 @@ interface PricingCardProps {
 }
 
 export default function PricingCard({
-  color,
+  colorVariant = "background",
   title,
   tagLine,
   excerpt,
@@ -48,6 +71,8 @@ export default function PricingCard({
   list,
   link,
 }: PricingCardProps) {
+  const color = stegaClean(colorVariant);
+
   return (
     <div
       key={title}
@@ -60,7 +85,7 @@ export default function PricingCard({
           {title && (
             <div className="flex justify-between items-center">
               <h3 className="font-bold text-xl leading-[1.2]">{title}</h3>
-              {tagLine && <Badge>{tagLine}</Badge>}
+              {tagLine && <Badge variant="outline">{tagLine}</Badge>}
             </div>
           )}
           {price && price.value && (
@@ -83,19 +108,21 @@ export default function PricingCard({
           )}
           {excerpt && <p>{excerpt}</p>}
         </div>
-        <Button
-          className="mt-6"
-          size="lg"
-          variant={stegaClean(link.buttonVariant)}
-          asChild
-        >
-          <Link
-            href={link?.href ? link.href : "#"}
-            target={link.target ? "_blank" : undefined}
+        {link && (
+          <Button
+            className="mt-6"
+            size="lg"
+            variant={stegaClean(link.buttonVariant)}
+            asChild
           >
-            {link.title}
-          </Link>
-        </Button>
+            <Link
+              href={link?.href ? link.href : "#"}
+              target={link?.target ? "_blank" : undefined}
+            >
+              {link.title}
+            </Link>
+          </Button>
+        )}
       </div>
     </div>
   );

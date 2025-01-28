@@ -13,6 +13,32 @@ import { Card, CardContent } from "@/components/ui/card";
 import { urlForImage } from "@/sanity/lib/image";
 import { StarRating } from "@/components/ui/star-rating";
 import PortableTextRenderer from "@/components/portable-text-renderer";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
+
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
 
 interface Carousel2Props {
   padding: {
@@ -31,10 +57,17 @@ interface Carousel2Props {
     _id: string;
     name: string;
     title: string;
-    image: Sanity.Image;
+    image: SanityImage;
     body: any;
     rating: number;
   }[];
+}
+
+interface Slide {
+  _key: string;
+  title: string;
+  description: string;
+  image: SanityImage;
 }
 
 export default function Carousel2({
@@ -61,7 +94,7 @@ export default function Carousel2({
                         <Avatar className="w-10 h-10 mr-3">
                           {item.image && (
                             <AvatarImage
-                              src={urlForImage(item.image).url()}
+                              src={urlForImage(item.image)?.url() || "/images/placeholder.svg"}
                               alt={item.name}
                             />
                           )}

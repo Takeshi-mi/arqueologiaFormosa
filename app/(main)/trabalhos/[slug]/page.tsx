@@ -11,17 +11,14 @@ import Link from "next/link";
 import { Mail, Facebook } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
 
-interface Props {
-  params: {
-    slug: string;
-  };
-}
-
 async function getTrabalho(slug: string) {
   return client.fetch(TRABALHO_ESCRITO_QUERY, { slug });
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const params = await props.params;
   const trabalho = await getTrabalho(params.slug);
 
   if (!trabalho) {
@@ -31,16 +28,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const imageUrl = trabalho.ogImage ? urlForImage(trabalho.ogImage)?.url() : null;
+  const dimensions = trabalho.ogImage?.asset?.metadata?.dimensions;
+
   return {
     title: trabalho.meta_title || trabalho.title,
     description: trabalho.meta_description || trabalho.excerpt,
-    openGraph: trabalho.ogImage
+    openGraph: imageUrl && dimensions
       ? {
           images: [
             {
-              url: urlForImage(trabalho.ogImage).url(),
-              width: trabalho.ogImage.asset.metadata.dimensions.width,
-              height: trabalho.ogImage.asset.metadata.dimensions.height,
+              url: imageUrl,
+              width: dimensions.width,
+              height: dimensions.height,
             },
           ],
         }
@@ -48,7 +48,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function TrabalhoPage({ params }: Props) {
+export default async function TrabalhoPage(props: {
+  params: Promise<{ slug: string }>;
+}) {
+  const params = await props.params;
   const trabalho = await getTrabalho(params.slug);
 
   if (!trabalho) {
@@ -95,10 +98,10 @@ export default async function TrabalhoPage({ params }: Props) {
           </div>
 
           {/* Imagem Principal */}
-          {trabalho.image && (
+          {trabalho.image && trabalho.image.asset && (
             <div className="aspect-[16/9] relative mb-6">
               <Image
-                src={urlForImage(trabalho.image).url()}
+                src={urlForImage(trabalho.image)?.url() || "/images/placeholder.svg"}
                 alt={trabalho.image.alt || trabalho.title}
                 fill
                 className="object-cover rounded-lg"

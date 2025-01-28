@@ -64,7 +64,13 @@ export default async function PostPage(props: {
       <div className="container py-16 xl:py-20">
         <article className="max-w-3xl mx-auto">
           <Breadcrumbs links={links} />
-          <PostHero {...post} />
+          <PostHero
+            title={post.title}
+            author={post.author}
+            image={post.image}
+            slug={post.slug}
+            _createdAt={post._createdAt}
+          />
           {post.body && <PortableTextRenderer value={post.body} />}
         </article>
       </div>

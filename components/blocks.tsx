@@ -10,8 +10,9 @@ import Cta1 from "@/components/ui/cta/cta-1";
 import LogoCloud1 from "@/components/ui/logo-cloud/logo-cloud-1";
 import FAQs from "@/components/ui/faqs";
 import FormNewsletter from "@/components/ui/forms/newsletter";
+import EmbedContainer from "@/components/ui/embed/embed-container";
 
-const componentMap: { [key: string]: React.ComponentType<any> } = {
+const componentMap = {
   "hero-1": Hero1,
   "section-header": SectionHeader,
   "split-row": SplitRow,
@@ -24,18 +25,33 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
   "logo-cloud-1": LogoCloud1,
   faqs: FAQs,
   "form-newsletter": FormNewsletter,
-};
+  embedContainer: EmbedContainer,
+} as const;
 
-export default function Blocks({ blocks }: { blocks?: Sanity.Block[] }) {
+type ComponentKey = keyof typeof componentMap;
+
+interface Block {
+  _key: string;
+  _type: string;
+  [key: string]: any;
+}
+
+export default function Blocks({ blocks }: { blocks?: Block[] }) {
+  if (!blocks) return null;
+
   return (
     <>
-      {blocks?.map((block: Sanity.Block) => {
-        const Component = componentMap[block._type];
+      {blocks.map((block) => {
+        const blockType = block._type as ComponentKey;
+        const Component = componentMap[blockType];
+        
         if (!Component) {
-          // Fallback for unknown block types to debug
-          return <div data-type={block._type} key={block._key} />;
+          console.log('Unknown block type:', block._type);
+          return null;
         }
-        return <Component {...block} key={block._key} />;
+
+        // @ts-expect-error - Os blocos do Sanity podem ter propriedades adicionais
+        return <Component key={block._key} {...block} />;
       })}
     </>
   );

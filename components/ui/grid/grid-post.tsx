@@ -4,53 +4,81 @@ import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import { ChevronRight } from "lucide-react";
 import { Badge } from "../badge";
+import { stegaClean } from "next-sanity";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
 
-interface GridPostProps {
-  color:
-    | "primary"
-    | "secondary"
-    | "card"
-    | "accent"
-    | "destructive"
-    | "background"
-    | "transparent";
-  title: string;
-  slug: Sanity.Post["slug"];
-  categories: Sanity.Category[];
-  excerpt: string;
-  image: Sanity.Image;
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
+
+export interface GridPostProps {
+  _type?: string;
+  _key?: string;
+  colorVariant?: "primary" | "secondary" | "card" | "accent" | "destructive" | "background" | "transparent";
+  title?: string;
+  slug?: Sanity.Post["slug"];
+  categories?: Sanity.Category[];
+  excerpt?: string;
+  image?: SanityImage;
 }
 
 export default function GridPost({
-  color,
+  colorVariant = "background",
   title,
   slug,
   excerpt,
   image,
   categories,
 }: GridPostProps) {
+  const color = stegaClean(colorVariant);
+
   return (
     <Link
       key={title}
       className="flex w-full rounded-3xl ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 group"
-      href={slug.current ? `/blog/${slug.current}` : "#"}
+      href={slug?.current ? `/blog/${slug.current}` : "#"}
     >
       <div
         className={cn(
-          "flex w-full flex-col justify-between overflow-hidden transition ease-in-out group border rounded-3xl p-4 hover:border-primary",
+          "flex w-full flex-col justify-between overflow-hidden transition ease-in-out group border rounded-3xl p-4",
           color === "primary"
             ? "group-hover:border-primary-foreground/50"
             : "group-hover:border-primary"
         )}
       >
         <div className="flex flex-col">
-          {image && image.asset?._id && (
+          {image && image.asset && (
             <div className="mb-4 relative h-[15rem] sm:h-[20rem] md:h-[25rem] lg:h-[9.5rem] xl:h-[12rem] rounded-2xl overflow-hidden">
               <Image
-                src={urlForImage(image).url()}
+                src={
+                  image.asset?.['_type'] === "sanity.imageAsset" && image.asset._id === "static"
+                    ? "/images/placeholder.svg"
+                    : urlForImage(image)?.url() || "/images/placeholder.svg"
+                }
                 alt={image.alt || ""}
                 placeholder={image?.asset?.metadata?.lqip ? "blur" : undefined}
-                blurDataURL={image?.asset?.metadata?.lqip || ""}
+                blurDataURL={image?.asset?.metadata?.lqip || undefined}
                 fill
                 style={{
                   objectFit: "cover",
@@ -68,7 +96,7 @@ export default function GridPost({
           {categories && categories.length > 0 && (
             <div className="flex flex-wrap gap-2 mb-4">
               {categories.map((category) => (
-                <Badge key={category._id} color="primary">
+                <Badge key={category._id} variant="outline">
                   {category.title}
                 </Badge>
               ))}

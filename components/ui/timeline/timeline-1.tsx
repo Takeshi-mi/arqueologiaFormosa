@@ -3,6 +3,32 @@ import { cn } from "@/lib/utils";
 import PortableTextRenderer from "@/components/portable-text-renderer";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
+
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
 
 export interface Timeline1Props {
   color:
@@ -16,7 +42,7 @@ export interface Timeline1Props {
   title: string;
   tagLine: string | null;
   body: any;
-  image: Sanity.Image;
+  image: SanityImage;
 }
 
 export default function Timeline1({

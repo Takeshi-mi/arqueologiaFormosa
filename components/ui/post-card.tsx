@@ -2,6 +2,47 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import { ChevronRight } from "lucide-react";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
+
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
+
+export interface PostCardProps {
+  title: string;
+  excerpt: string;
+  slug: string;
+  image: SanityImage;
+  author: {
+    name: string;
+    image: SanityImage;
+  };
+  categories: {
+    title: string;
+  }[];
+  date: string;
+}
 
 export default function PostCard({
   className,
@@ -12,7 +53,7 @@ export default function PostCard({
   className: string;
   title: string;
   excerpt: string;
-  image: Sanity.Image;
+  image: SanityImage;
 }>) {
   return (
     <div
@@ -22,13 +63,13 @@ export default function PostCard({
       )}
     >
       <div className="flex flex-col">
-        {image && image.asset?._id && (
+        {image && image.asset && (
           <div className="mb-4 relative h-[15rem] sm:h-[20rem] md:h-[25rem] lg:h-[9.5rem] xl:h-[12rem] rounded-2xl overflow-hidden">
             <Image
-              src={urlForImage(image).url()}
+              src={urlForImage(image)?.url() || "/images/placeholder.svg"}
               alt={image.alt || ""}
-              placeholder={image?.asset?.metadata?.lqip ? "blur" : undefined}
-              blurDataURL={image?.asset?.metadata?.lqip || ""}
+              placeholder={image.asset?.metadata?.lqip ? "blur" : undefined}
+              blurDataURL={image.asset?.metadata?.lqip || undefined}
               fill
               style={{
                 objectFit: "cover",

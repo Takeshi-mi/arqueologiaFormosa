@@ -1,49 +1,38 @@
-const embedContainer = {
+import { defineField, defineType } from "sanity";
+import { Code2 } from "lucide-react";
+
+export default defineType({
   name: 'embedContainer',
   title: 'Container de Embed',
   type: 'object',
+  icon: Code2,
+  description: 'Container para códigos embed como iframes, mapas, etc.',
   fields: [
-    {
+    defineField({
       name: 'embedCode',
       title: 'Código do Embed',
       type: 'text',
       description: 'Cole aqui o código HTML do embed (iframe, etc)',
-    },
-    {
+      validation: Rule => Rule.required(),
+    }),
+    defineField({
       name: 'minHeight',
       title: 'Altura Mínima',
       type: 'string',
       description: 'Altura mínima do container (ex: 400px, 600px)',
       initialValue: '400px',
-    },
-    {
+    }),
+    defineField({
       name: 'padding',
+      type: 'section-padding',
       title: 'Padding',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Nenhum', value: 'none' },
-          { title: 'Pequeno', value: 'sm' },
-          { title: 'Médio', value: 'md' },
-          { title: 'Grande', value: 'lg' },
-        ],
-      },
-      initialValue: 'lg',
-    },
-    {
+    }),
+    defineField({
       name: 'colorVariant',
+      type: 'color-variant',
       title: 'Cor de Fundo',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Padrão', value: 'default' },
-          { title: 'Primária', value: 'primary' },
-          { title: 'Secundária', value: 'secondary' },
-          { title: 'Muted', value: 'muted' },
-        ],
-      },
-      initialValue: 'default',
-    },
+      description: 'Selecione a cor de fundo do container',
+    }),
   ],
   preview: {
     select: {
@@ -54,9 +43,8 @@ const embedContainer = {
       return {
         title: 'Container de Embed',
         subtitle: embedCode ? 'Com embed configurado' : 'Sem embed configurado',
+        media: Code2,
       };
     },
   },
-};
-
-export default embedContainer; 
+}); 

@@ -1,27 +1,35 @@
+"use client";
+
 import SectionContainer, {
   ISectionContainer,
   ISectionPadding,
+  DEFAULT_PADDING,
 } from "@/components/ui/section-container";
 import { stegaClean } from "next-sanity";
 
-interface IEmbedContainer {
-  embedCode?: string;
+export interface IEmbedContainer {
+  _type: 'embedContainer';
+  _key: string;
+  embedCode: string;
   minHeight?: string;
   padding?: ISectionPadding;
   colorVariant?: ISectionContainer["color"];
 }
 
 export default function EmbedContainer({
+  _key,
   embedCode,
   minHeight = '400px',
-  padding = 'lg',
-  colorVariant = 'default',
+  padding = DEFAULT_PADDING,
+  colorVariant = 'primary',
 }: IEmbedContainer) {
   const color = stegaClean(colorVariant);
 
+  if (!embedCode) return null;
+
   return (
-    <SectionContainer color={color} padding={padding}>
-      {embedCode && (
+    <SectionContainer key={_key} color={color} padding={padding}>
+      <div className="container">
         <div className="flex justify-center items-center">
           <div 
             className="w-full rounded-lg overflow-hidden"
@@ -33,7 +41,7 @@ export default function EmbedContainer({
             />
           </div>
         </div>
-      )}
+      </div>
     </SectionContainer>
   );
 } 

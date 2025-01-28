@@ -6,6 +6,32 @@ import { fetchSanityPosts } from "./actions";
 import { fetchSanityPageBySlug } from "../actions";
 import { generatePageMetadata } from "@/lib/metadata";
 import MissingSanityPage from "@/components/ui/missing-sanity-page";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
+
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
 
 export const dynamic = "force-static";
 
@@ -45,7 +71,7 @@ export default async function BlogPage() {
                 <PostCard
                   title={post.title}
                   excerpt={post.excerpt}
-                  image={post.image}
+                  image={post.image as SanityImage}
                 />
               </Link>
             ))}

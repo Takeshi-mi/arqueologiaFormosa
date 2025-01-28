@@ -5,8 +5,34 @@ import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import { Fragment } from "react";
 import { motion } from "motion/react";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
 
-interface LogoCloud1Props {
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
+
+export interface LogoCloud1Props {
   padding: {
     top: boolean;
     bottom: boolean;
@@ -20,7 +46,9 @@ interface LogoCloud1Props {
     | "background"
     | "transparent";
   title: string;
-  images: Sanity.Image[];
+  tagLine: string | null;
+  body: any;
+  images: SanityImage[];
 }
 
 export default function LogoCloud1({
@@ -62,23 +90,31 @@ export default function LogoCloud1({
         >
           {[...new Array(2)].map((_, arrayIndex) => (
             <Fragment key={arrayIndex}>
-              {images?.map((image, index) => (
-                <div
-                  key={`${image.asset._id}-${arrayIndex}-${index}`}
-                  className="flex-shrink-0 w-24 h-24 flex items-center justify-center"
-                >
-                  <Image
-                    src={urlForImage(image).url()}
-                    alt={image.alt || ""}
-                    placeholder={
-                      image?.asset?.metadata?.lqip ? "blur" : undefined
-                    }
-                    blurDataURL={image?.asset?.metadata?.lqip || ""}
-                    width={image.asset?.metadata?.dimensions?.width || 220}
-                    height={image?.asset?.metadata?.dimensions?.height || 90}
-                  />
-                </div>
-              ))}
+              {images?.map((image, index) => {
+                const assetId = image.asset?.['_type'] === "sanity.imageAsset" 
+                  ? image.asset._id 
+                  : image.asset?.['_type'] === "reference"
+                    ? image.asset._ref
+                    : '';
+
+                return (
+                  <div
+                    key={`${assetId}-${arrayIndex}-${index}`}
+                    className="flex-shrink-0 w-24 h-24 flex items-center justify-center"
+                  >
+                    <Image
+                      src={urlForImage(image)?.url() || "/images/placeholder.svg"}
+                      alt={image.alt || ""}
+                      placeholder={
+                        image?.asset?.metadata?.lqip ? "blur" : undefined
+                      }
+                      blurDataURL={image?.asset?.metadata?.lqip || undefined}
+                      width={image.asset?.metadata?.dimensions?.width || 220}
+                      height={image?.asset?.metadata?.dimensions?.height || 90}
+                    />
+                  </div>
+                );
+              })}
             </Fragment>
           ))}
         </motion.div>

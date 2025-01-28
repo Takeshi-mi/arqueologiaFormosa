@@ -6,6 +6,32 @@ import { stegaClean } from "next-sanity";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ISectionContainer } from "../section-container";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
+
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
 
 export interface ISplitColumn {
   colorVariant: ISectionContainer["color"];
@@ -13,7 +39,7 @@ export interface ISplitColumn {
   title: string;
   body: any;
   tagLine: string | null;
-  image: Sanity.Image;
+  image: SanityImage;
   link: {
     title: string;
     href: string;
@@ -43,7 +69,7 @@ export default function SplitColumn({
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2">
-      {image && image.asset?._id && (
+      {image && image.asset && (
         <div
           className={cn(
             "relative h-[15rem] sm:h-[20rem] md:h-[25rem] lg:h-[30rem] rounded-lg overflow-hidden",
@@ -52,13 +78,13 @@ export default function SplitColumn({
         >
           <Image
             src={
-              image.asset?._id === "static"
+              image.asset?.['_type'] === "sanity.imageAsset" && image.asset._id === "static"
                 ? "/images/placeholder.svg"
-                : urlForImage(image).url()
+                : urlForImage(image)?.url() || "/images/placeholder.svg"
             }
             alt={image.alt || ""}
             placeholder={image?.asset?.metadata?.lqip ? "blur" : undefined}
-            blurDataURL={image?.asset?.metadata?.lqip || ""}
+            blurDataURL={image?.asset?.metadata?.lqip || undefined}
             fill
             className="object-cover"
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"

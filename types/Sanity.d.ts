@@ -1,6 +1,8 @@
 import type {
   SanityImageObject,
   SanityImageDimensions,
+  SanityReference,
+  SanityAsset,
 } from "@sanity/image-url/lib/types/types";
 import type { SanityDocument } from "next-sanity";
 
@@ -41,17 +43,30 @@ declare global {
       title: string;
     }>;
 
-    type Image = SanityImageObject &
-      Partial<{
-        alt: string;
-        asset: {
-          _id: string;
-          metadata: {
-            dimensions: SanityImageDimensions;
-            lqip: string;
+    type Image = SanityImageObject & {
+      alt?: string;
+      asset?: (SanityReference & {
+        _type: "reference";
+        _id: string;
+        metadata?: {
+          dimensions?: {
+            width: number;
+            height: number;
           };
+          lqip?: string;
         };
-      }>;
+      }) | (SanityAsset & {
+        _type: "sanity.imageAsset";
+        _id: string;
+        metadata?: {
+          dimensions?: {
+            width: number;
+            height: number;
+          };
+          lqip?: string;
+        };
+      });
+    };
 
     // objects
     type Block<T = string> = {

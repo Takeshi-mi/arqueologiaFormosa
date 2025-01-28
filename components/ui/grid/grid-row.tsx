@@ -6,21 +6,19 @@ import GridCard from "./grid-card";
 import PricingCard from "./pricing-card";
 import GridPost from "./grid-post";
 
-interface Grid1Props {
-  padding: {
+export interface GridRowProps {
+  _type?: string;
+  _key?: string;
+  padding?: {
     top: boolean;
     bottom: boolean;
   };
-  colorVariant:
-    | "primary"
-    | "secondary"
-    | "card"
-    | "accent"
-    | "destructive"
-    | "background"
-    | "transparent";
-  gridColumns: "grid-cols-2" | "grid-cols-3" | "grid-cols-4";
-  columns: Sanity.Block[];
+  colorVariant?: "primary" | "secondary" | "card" | "accent" | "destructive" | "background" | "transparent";
+  layoutVariant?: "grid-cols-2" | "grid-cols-3" | "grid-cols-4";
+  title?: string;
+  tagLine?: string | null;
+  body?: any;
+  columns?: Sanity.Block[];
 }
 
 // map all components you need
@@ -32,19 +30,33 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
 
 export default function GridRow({
   padding,
-  colorVariant,
-  gridColumns,
+  colorVariant = "background",
+  layoutVariant = "grid-cols-2",
+  title,
+  tagLine,
+  body,
   columns,
-}: Partial<Grid1Props>) {
+}: GridRowProps) {
   const color = stegaClean(colorVariant);
 
   return (
     <SectionContainer color={color} padding={padding}>
+      {title && (
+        <div className="text-center mb-10">
+          {tagLine && (
+            <h2 className="leading-[0] mb-4">
+              <span className="text-base font-semibold">{tagLine}</span>
+            </h2>
+          )}
+          <h3 className="font-bold">{title}</h3>
+          {body && <div className="mt-4">{body}</div>}
+        </div>
+      )}
       {columns && columns?.length > 0 && (
         <div
           className={cn(
-            `grid grid-cols-1 gap-6`,
-            `lg:${stegaClean(gridColumns)}`
+            "grid grid-cols-1 gap-6",
+            `lg:${stegaClean(layoutVariant)}`
           )}
         >
           {columns.map((block: Sanity.Block) => {
@@ -53,7 +65,7 @@ export default function GridRow({
               // Fallback for unknown block types to debug
               return <div data-type={block._type} key={block._key} />;
             }
-            return <Component {...block} color={color} key={block._key} />;
+            return <Component {...block} colorVariant={color} key={block._key} />;
           })}
         </div>
       )}

@@ -91,9 +91,9 @@ export function TrabalhosLista({ initialTrabalhos, sitios, tipos }: Props) {
           >
             <Card className="h-full hover:shadow-lg transition-shadow">
               <div className="aspect-[16/9] relative">
-                {trabalho.image && urlForImage(trabalho.image) && (
+                {trabalho.image && trabalho.image.asset && (
                   <Image
-                    src={urlForImage(trabalho.image).url()}
+                    src={urlForImage(trabalho.image)?.url() || "/images/placeholder.svg"}
                     alt={trabalho.image.alt || trabalho.title}
                     fill
                     className="object-cover rounded-t-lg"

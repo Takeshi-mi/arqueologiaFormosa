@@ -12,6 +12,32 @@ import {
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import { cn } from "@/lib/utils";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
+
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
 
 // Define os tamanhos do carrossel para diferentes números de itens
 const CAROUSEL_SIZES = {
@@ -31,7 +57,7 @@ const IMAGE_SIZES = {
 type CarouselSize = keyof typeof CAROUSEL_SIZES;
 
 // Define as propriedades aceitas pelo componente Carousel1
-interface Carousel1Props {
+export interface Carousel1Props {
   padding: {
     top: boolean;
     bottom: boolean;
@@ -47,8 +73,7 @@ interface Carousel1Props {
     | "transparent";
   size: CarouselSize;
   indicators: "none" | "dots" | "count";
-  images?: Sanity.Image[];
-
+  images?: SanityImage[];
 }
 
 // Componente principal do carrossel
@@ -85,16 +110,16 @@ export default function Carousel1({
                     <Image
                       className="object-cover"
                       src={
-                        image.asset?._id === "static"
+                        image.asset?.['_type'] === "sanity.imageAsset" && image.asset._id === "static"
                           ? "/images/placeholder.svg"
-                          : urlForImage(image).url()
+                          : urlForImage(image)?.url() || "/images/placeholder.svg"
                       }
                       alt={image.alt || ""}
                       fill
                       placeholder={
                         image?.asset?.metadata?.lqip ? "blur" : undefined
                       }
-                      blurDataURL={image.asset?.metadata?.lqip || ""}
+                      blurDataURL={image.asset?.metadata?.lqip || undefined}
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                       quality={100}
                     />
