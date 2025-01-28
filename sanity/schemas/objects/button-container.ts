@@ -1,11 +1,11 @@
 import { defineField, defineType } from "sanity";
-import { Button } from "lucide-react";
+import { LinkIcon } from "lucide-react";
 
 export default defineType({
   name: "buttonContainer",
   title: "Container de Botões",
   type: "object",
-  icon: Button,
+  icon: LinkIcon,
   fields: [
     defineField({
       name: "padding",
@@ -46,7 +46,7 @@ export default defineType({
       return {
         title: "Container de Botões",
         subtitle: `${buttons?.length || 0} botão(ões)`,
-        media: Button,
+        media: LinkIcon,
       };
     },
   },

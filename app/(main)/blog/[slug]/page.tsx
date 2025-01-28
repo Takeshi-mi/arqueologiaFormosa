@@ -3,6 +3,7 @@ import Breadcrumbs from "@/components/ui/breadcrumbs";
 import PostHero from "@/components/ui/post/hero";
 import { BreadcrumbLink } from "@/types";
 import PortableTextRenderer from "@/components/portable-text-renderer";
+import MissingSanityPage from "@/components/ui/missing-sanity-page";
 import {
   fetchSanityPostBySlug,
   fetchSanityPostsStaticParams,
@@ -73,7 +74,6 @@ export default async function PostPage(props: {
             _createdAt={post._createdAt}
           />
           {post.body && <PortableTextRenderer value={post.body} />}
-          <PostButtons buttons={post.buttons} alignment="center" />
         </article>
       </div>
     </section>
