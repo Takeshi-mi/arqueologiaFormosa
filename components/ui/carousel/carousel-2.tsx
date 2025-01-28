@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { urlFor } from "@/sanity/lib/image";
+import { urlForImage } from "@/sanity/lib/image";
 import { StarRating } from "@/components/ui/star-rating";
 import PortableTextRenderer from "@/components/portable-text-renderer";
 
@@ -61,7 +61,7 @@ export default function Carousel2({
                         <Avatar className="w-10 h-10 mr-3">
                           {item.image && (
                             <AvatarImage
-                              src={urlFor(item.image.asset).url()}
+                              src={urlForImage(item.image).url()}
                               alt={item.name}
                             />
                           )}

@@ -20,7 +20,7 @@ export const structure = (S: any, context: any) =>
         context,
       }),
       S.listItem()
-        .title("Publicações")
+        .title("Blog")
         .schemaType("post")
         .child(
           S.documentTypeList("post")

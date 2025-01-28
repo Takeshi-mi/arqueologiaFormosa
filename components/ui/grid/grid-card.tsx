@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { stegaClean } from "next-sanity";
 import Link from "next/link";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import { urlForImage } from "@/sanity/lib/image";
 
 interface GridCardProps {
   color:
@@ -62,7 +62,7 @@ export default function GridCard({
                 src={
                   image.asset?._id === "static"
                     ? "/images/placeholder.svg"
-                    : urlFor(image.asset).url()
+                    : urlForImage(image).url()
                 }
                 alt={image.alt || ""}
                 placeholder={image?.asset?.metadata?.lqip ? "blur" : undefined}

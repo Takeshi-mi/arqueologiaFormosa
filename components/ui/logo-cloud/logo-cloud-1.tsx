@@ -2,7 +2,7 @@
 import SectionContainer from "@/components/ui/section-container";
 import { stegaClean } from "next-sanity";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import { urlForImage } from "@/sanity/lib/image";
 import { Fragment } from "react";
 import { motion } from "motion/react";
 
@@ -68,7 +68,7 @@ export default function LogoCloud1({
                   className="flex-shrink-0 w-24 h-24 flex items-center justify-center"
                 >
                   <Image
-                    src={urlFor(image.asset).url()}
+                    src={urlForImage(image).url()}
                     alt={image.alt || ""}
                     placeholder={
                       image?.asset?.metadata?.lqip ? "blur" : undefined

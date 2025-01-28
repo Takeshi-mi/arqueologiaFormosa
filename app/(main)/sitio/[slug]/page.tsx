@@ -43,7 +43,7 @@ export default async function SitioPage({ params }: { params: PageParams }) {
           },
           {
             label: "Sítios Arqueológicos",
-            href: "/sitio/sitios-arqueologicos",
+            href: "/sitios-arqueologicos",
           },
           {
             label: sitio.title,

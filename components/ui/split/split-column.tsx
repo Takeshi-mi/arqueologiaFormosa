@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import { urlForImage } from "@/sanity/lib/image";
 import PortableTextRenderer from "@/components/portable-text-renderer";
 import { stegaClean } from "next-sanity";
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ export default function SplitColumn({
             src={
               image.asset?._id === "static"
                 ? "/images/placeholder.svg"
-                : urlFor(image.asset).url()
+                : urlForImage(image).url()
             }
             alt={image.alt || ""}
             placeholder={image?.asset?.metadata?.lqip ? "blur" : undefined}

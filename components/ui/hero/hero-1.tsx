@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import { urlForImage } from "@/sanity/lib/image";
 import { stegaClean } from "next-sanity";
 import PortableTextRenderer from "@/components/portable-text-renderer";
 
@@ -70,7 +70,7 @@ export default function Hero1({
           {image && image.asset?._id && (
             <Image
               className="rounded-xl"
-              src={urlFor(image.asset)?.url() || "/images/placeholder.svg"}
+              src={urlForImage(image)?.url() || "/images/placeholder.svg"}
               alt={image.alt || ""}
               width={image.asset?.metadata?.dimensions?.width || 800}
               height={image.asset?.metadata?.dimensions?.height || 800}
