@@ -37,22 +37,24 @@ export default async function SitioPage(props: {
 
   return (
     <>
-      <Breadcrumb
-        items={[
-          {
-            label: "Home",
-            href: "/",
-          },
-          {
-            label: "Sítios Arqueológicos",
-            href: "/sitios-arqueologicos",
-          },
-          {
-            label: sitio.title,
-            href: `/sitio/${params.slug}`,
-          },
-        ]}
-      />
+      <div className="container">
+        <Breadcrumb
+          items={[
+            {
+              label: "Home",
+              href: "/",
+            },
+            {
+              label: "Sítios Arqueológicos",
+              href: "/sitios-arqueologicos",
+            },
+            {
+              label: sitio.title,
+              href: `/sitio/${params.slug}`,
+            },
+          ]}
+        />
+      </div>
       <Blocks blocks={sitio?.blocks} />
     </>
   );

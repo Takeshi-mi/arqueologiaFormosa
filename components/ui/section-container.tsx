@@ -22,6 +22,7 @@ export interface ISectionContainer {
   children: React.ReactNode;
   className?: string;
   padding?: ISectionPadding | null | undefined;
+  fluid?: boolean;
 }
 
 export default function SectionContainer({
@@ -29,6 +30,7 @@ export default function SectionContainer({
   padding,
   children,
   className,
+  fluid = false,
 }: ISectionContainer) {
   return (
     <div
@@ -39,7 +41,7 @@ export default function SectionContainer({
         className
       )}
     >
-      <div className="container">{children}</div>
+      <div className={fluid ? "w-full" : "container"}>{children}</div>
     </div>
   );
 }

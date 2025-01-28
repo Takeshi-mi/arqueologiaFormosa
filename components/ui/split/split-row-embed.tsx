@@ -44,9 +44,9 @@ export default function SplitRowEmbed({
   const color = stegaClean(colorVariant);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer color={color} padding={padding} fluid={true}>
       {splitColumns && splitColumns?.length > 0 && (
-        <div className="grid grid-col-1 gap-6 xl:gap-16">
+        <div className="container mx-auto grid grid-col-1 gap-6 xl:gap-16">
           {splitColumns?.map((column, index) => (
             <div key={index} className="flex flex-col gap-8">
               {column.titlePosition === "top" && (
@@ -69,7 +69,10 @@ export default function SplitRowEmbed({
                   "flex-1 flex items-center",
                   column.position === 'right' ? 'md:order-2 md:pl-12 lg:pl-16 xl:pl-20' : 'md:pr-12 lg:pr-16 xl:pr-20'
                 )}>
-                  <div className="prose dark:prose-invert max-w-none w-full">
+                  <div className={cn(
+                    "prose dark:prose-invert max-w-none w-full",
+                    color === 'accent' && "[&>*]:text-accent-foreground"
+                  )}>
                     {column.titlePosition !== "top" && (
                       <>
                         {column.tagLine && (
