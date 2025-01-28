@@ -1,6 +1,11 @@
-export const EMBED_CONTAINER_QUERY = `
-  embedCode,
-  minHeight,
-  padding,
-  colorVariant,
+import { groq } from "next-sanity";
+
+export const embedContainerQuery = groq`
+  _type == "embedContainer" => {
+    _type,
+    _key,
+    embedCode,
+    padding,
+    colorVariant,
+  },
 `; 

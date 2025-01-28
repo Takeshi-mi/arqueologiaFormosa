@@ -3,15 +3,13 @@
 import SectionContainer, {
   ISectionContainer,
   ISectionPadding,
-  DEFAULT_PADDING,
 } from "@/components/ui/section-container";
 import { stegaClean } from "next-sanity";
 
-export interface IEmbedContainer {
-  _type: 'embedContainer';
+interface IEmbedContainer {
+  _type: "embedContainer";
   _key: string;
   embedCode: string;
-  minHeight?: string;
   padding?: ISectionPadding;
   colorVariant?: ISectionContainer["color"];
 }
@@ -19,27 +17,27 @@ export interface IEmbedContainer {
 export default function EmbedContainer({
   _key,
   embedCode,
-  minHeight = '400px',
-  padding = DEFAULT_PADDING,
-  colorVariant = 'primary',
+  padding,
+  colorVariant = "background",
 }: IEmbedContainer) {
   const color = stegaClean(colorVariant);
 
   if (!embedCode) return null;
 
+  // Limpa o código do iframe e adiciona os estilos necessários
+  const cleanedEmbedCode = embedCode.replace(
+    /<iframe/g,
+    '<iframe style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; border: 0;"'
+  );
+
   return (
-    <SectionContainer key={_key} color={color} padding={padding}>
-      <div className="container">
-        <div className="flex justify-center items-center">
-          <div 
-            className="w-full rounded-lg overflow-hidden"
-            style={{ minHeight }}
-          >
-            <div 
-              className="w-full h-full"
-              dangerouslySetInnerHTML={{ __html: embedCode }} 
-            />
-          </div>
+    <SectionContainer key={_key} color={color} padding={padding} fluid>
+      <div className="container mx-auto">
+        <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+          <div
+            className="absolute inset-0 rounded-lg overflow-hidden"
+            dangerouslySetInnerHTML={{ __html: cleanedEmbedCode }}
+          />
         </div>
       </div>
     </SectionContainer>
