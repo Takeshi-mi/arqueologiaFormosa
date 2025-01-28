@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import SectionContainer from "@/components/ui/section-container";
-import { stegaClean } from "next-sanity";
 // import only the components you need
 import GridCard from "./grid-card";
 import PricingCard from "./pricing-card";
@@ -30,6 +29,19 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
   "grid-trabalho": GridTrabalho,
 };
 
+const getGridClass = (columns: string = "grid-cols-3") => {
+  switch (columns) {
+    case "grid-cols-2":
+      return "lg:grid-cols-2";
+    case "grid-cols-3":
+      return "lg:grid-cols-3";
+    case "grid-cols-4":
+      return "lg:grid-cols-4";
+    default:
+      return "lg:grid-cols-3";
+  }
+};
+
 export default function GridRow({
   padding,
   colorVariant = "background",
@@ -39,13 +51,8 @@ export default function GridRow({
   body,
   columns,
 }: GridRowProps) {
-  const color = stegaClean(colorVariant);
-  const cleanGridColumns = stegaClean(gridColumns);
-
-  console.log('Grid Columns:', cleanGridColumns); // Para debug
-
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer color={colorVariant} padding={padding}>
       {title && (
         <div className="text-center mb-10">
           {tagLine && (
@@ -61,22 +68,15 @@ export default function GridRow({
         <div
           className={cn(
             "grid grid-cols-1 gap-6 md:grid-cols-2",
-            {
-              "lg:grid-cols-2": cleanGridColumns === "grid-cols-2",
-              "lg:grid-cols-3": cleanGridColumns === "grid-cols-3",
-              "lg:grid-cols-4": cleanGridColumns === "grid-cols-4",
-            }
+            getGridClass(gridColumns)
           )}
         >
           {columns.map((block: Sanity.Block) => {
-            console.log('Block data:', block); // Para debug
             const Component = componentMap[block._type];
             if (!Component) {
-              // Fallback for unknown block types to debug
-              console.log('Unknown block type:', block._type); // Para debug
-              return <div data-type={block._type} key={block._key} />;
+              return null;
             }
-            return <Component {...block} colorVariant={color} key={block._key} />;
+            return <Component {...block} colorVariant={colorVariant} key={block._key} />;
           })}
         </div>
       )}

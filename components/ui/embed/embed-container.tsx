@@ -6,6 +6,7 @@ import SectionContainer, {
 } from "@/components/ui/section-container";
 import { stegaClean } from "next-sanity";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
 interface IEmbedContainer {
   _type: "embedContainer";
@@ -34,7 +35,12 @@ export default function EmbedContainer({
   padding,
   colorVariant = "background",
 }: IEmbedContainer) {
+  const [isMounted, setIsMounted] = useState(false);
   const color = stegaClean(colorVariant);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   if (!embedCode) return null;
 
@@ -72,10 +78,12 @@ export default function EmbedContainer({
             "--max-width": maxWidth,
           } as React.CSSProperties}
         >
-          <div
-            className="absolute inset-0 rounded-lg overflow-hidden"
-            dangerouslySetInnerHTML={{ __html: cleanedEmbedCode }}
-          />
+          {isMounted && (
+            <div
+              className="absolute inset-0 rounded-lg overflow-hidden"
+              dangerouslySetInnerHTML={{ __html: cleanedEmbedCode }}
+            />
+          )}
         </div>
       </div>
     </SectionContainer>

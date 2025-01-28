@@ -19,6 +19,9 @@ interface IButtonContainer {
   }>;
 }
 
+type ButtonVariant = "default" | "secondary" | "link" | "destructive" | "outline" | "ghost";
+type ColorVariant = "primary" | "secondary" | "card" | "accent" | "destructive" | "background" | "transparent";
+
 export default function ButtonContainer({
   _key,
   padding,
@@ -26,20 +29,31 @@ export default function ButtonContainer({
   alignment = "left",
   buttons,
 }: IButtonContainer) {
-  const color = stegaClean(colorVariant);
+  // Limpa os dados corrompidos
+  const cleanColor = (stegaClean(colorVariant)?.trim() || "background") as ColorVariant;
+  const cleanAlignment = (stegaClean(alignment)?.trim() || "left") as "left" | "center" | "right";
+  const cleanButtons = buttons?.map(button => {
+    const cleanButtonVariant = stegaClean(button.buttonVariant)?.trim() || "default";
+    return {
+      ...button,
+      title: stegaClean(button.title)?.trim() || "",
+      href: stegaClean(button.href)?.trim() || "#",
+      buttonVariant: cleanButtonVariant as ButtonVariant
+    };
+  });
 
-  if (!buttons?.length) return null;
+  if (!cleanButtons?.length) return null;
 
   // Debug: Verificar o valor do alinhamento
-  console.log('ButtonContainer - alignment:', alignment);
+  console.log('ButtonContainer - alignment:', cleanAlignment);
   console.log('ButtonContainer - raw props:', { _key, padding, colorVariant, alignment, buttons });
 
   return (
-    <SectionContainer key={_key} color={color} padding={padding}>
+    <SectionContainer key={_key} color={cleanColor} padding={padding}>
       <div className="container">
         <PostButtons 
-          buttons={buttons} 
-          alignment={stegaClean(alignment) as "left" | "center" | "right"} 
+          buttons={cleanButtons} 
+          alignment={cleanAlignment} 
         />
       </div>
     </SectionContainer>

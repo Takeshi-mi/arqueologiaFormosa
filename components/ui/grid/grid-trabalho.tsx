@@ -4,72 +4,27 @@ import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import { ChevronRight } from "lucide-react";
 import { Badge } from "../badge";
-import { stegaClean } from "next-sanity";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
-
-type SanityImage = SanityImageObject & {
-  alt?: string;
-  asset?: (SanityReference & {
-    _type: "reference";
-    _id: string;
-    metadata?: {
-      dimensions?: {
-        width: number;
-        height: number;
-      };
-      lqip?: string;
-    };
-  }) | (SanityAsset & {
-    _type: "sanity.imageAsset";
-    _id: string;
-    metadata?: {
-      dimensions?: {
-        width: number;
-        height: number;
-      };
-      lqip?: string;
-    };
-  });
-};
 
 export interface GridTrabalhoProps {
   _type?: string;
   _key?: string;
   colorVariant?: "primary" | "secondary" | "card" | "accent" | "destructive" | "background" | "transparent";
-  trabalho?: {
-    _id: string;
-    title: string;
-    slug: { current: string };
-    excerpt?: string;
-    publishedAt?: string;
-    image?: SanityImage;
-    tipos?: Array<{
-      _id: string;
-      title: string;
-    }>;
-    sitios?: Array<{
-      _id: string;
-      title: string;
-    }>;
-    authors?: Array<{
-      _id: string;
-      name: string;
-      image?: SanityImage;
-    }>;
-  };
+  trabalho: Sanity.TrabalhoEscrito;
 }
 
 export default function GridTrabalho({
   colorVariant = "background",
   trabalho,
 }: GridTrabalhoProps) {
-  const color = stegaClean(colorVariant);
-
   if (!trabalho) return null;
 
-  console.log('Dados do trabalho:', trabalho); // Para debug
+  const getBorderClass = (variant: string) => {
+    return variant === "primary" 
+      ? "group-hover:border-primary-foreground/50"
+      : "group-hover:border-primary";
+  };
 
   return (
     <Link
@@ -80,9 +35,7 @@ export default function GridTrabalho({
       <div
         className={cn(
           "flex w-full flex-col justify-between overflow-hidden transition ease-in-out group border rounded-3xl p-4",
-          color === "primary"
-            ? "group-hover:border-primary-foreground/50"
-            : "group-hover:border-primary"
+          getBorderClass(colorVariant)
         )}
       >
         <div className="flex flex-col">

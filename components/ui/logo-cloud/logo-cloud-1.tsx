@@ -88,9 +88,9 @@ export default function LogoCloud1({
           }}
           className="flex w-max gap-24 pr-24"
         >
-          {[...new Array(2)].map((_, arrayIndex) => (
-            <Fragment key={arrayIndex}>
-              {images?.map((image, index) => {
+          {[0, 1].map((arrayIndex) => (
+            <div key={`group-${arrayIndex}`} className="flex">
+              {images?.map((image) => {
                 const assetId = image.asset?.['_type'] === "sanity.imageAsset" 
                   ? image.asset._id 
                   : image.asset?.['_type'] === "reference"
@@ -99,7 +99,7 @@ export default function LogoCloud1({
 
                 return (
                   <div
-                    key={`${assetId}-${arrayIndex}-${index}`}
+                    key={`${assetId}-${arrayIndex}`}
                     className="flex-shrink-0 w-24 h-24 flex items-center justify-center"
                   >
                     <Image
@@ -115,7 +115,7 @@ export default function LogoCloud1({
                   </div>
                 );
               })}
-            </Fragment>
+            </div>
           ))}
         </motion.div>
       </div>

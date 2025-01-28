@@ -1,7 +1,7 @@
 import { groq } from "next-sanity";
 
 export const TRABALHOS_GRID_QUERY = groq`
-  *[_type == "trabalho-escrito"] | order(publishedAt desc) {
+  *[_type == "trabalho-escrito" && !(_id in path("drafts.**"))] | order(publishedAt desc) {
     _id,
     _type,
     title,

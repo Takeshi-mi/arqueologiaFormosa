@@ -1,6 +1,7 @@
 import { groq } from "next-sanity";
 
-export const TRABALHOS_ESCRITOS_QUERY = groq`*[_type == "trabalho-escrito" && defined(slug)] | order(publishedAt desc){
+export const TRABALHOS_ESCRITOS_QUERY = groq`*[_type == "trabalho-escrito" && defined(slug) && !(_id in path("drafts.**"))] | order(publishedAt desc){
+    _id,
     title,
     slug,
     excerpt,
@@ -53,7 +54,8 @@ export const TRABALHOS_ESCRITOS_QUERY = groq`*[_type == "trabalho-escrito" && de
     }
 }`;
 
-export const TRABALHO_ESCRITO_QUERY = groq`*[_type == "trabalho-escrito" && slug.current == $slug][0]{
+export const TRABALHO_ESCRITO_QUERY = groq`*[_type == "trabalho-escrito" && slug.current == $slug && !(_id in path("drafts.**"))][0]{
+    _id,
     title,
     slug,
     excerpt,
@@ -143,4 +145,4 @@ export const TRABALHO_ESCRITO_QUERY = groq`*[_type == "trabalho-escrito" && slug
     }
 }`;
 
-export const TRABALHOS_ESCRITOS_SLUGS_QUERY = groq`*[_type == "trabalho-escrito" && defined(slug)]{slug}`; 
+export const TRABALHOS_ESCRITOS_SLUGS_QUERY = groq`*[_type == "trabalho-escrito" && defined(slug) && !(_id in path("drafts.**"))]{slug}`; 
