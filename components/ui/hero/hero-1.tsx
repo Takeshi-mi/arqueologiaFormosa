@@ -4,6 +4,48 @@ import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 import { stegaClean } from "next-sanity";
 import PortableTextRenderer from "@/components/portable-text-renderer";
+import type { SanityImageObject, SanityReference, SanityAsset } from "@sanity/image-url/lib/types/types";
+
+type SanityImage = SanityImageObject & {
+  alt?: string;
+  asset?: (SanityReference & {
+    _type: "reference";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  }) | (SanityAsset & {
+    _type: "sanity.imageAsset";
+    _id: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+      lqip?: string;
+    };
+  });
+};
+
+export interface Hero1Props {
+  padding: {
+    top: boolean;
+    bottom: boolean;
+  };
+  colorVariant: "primary" | "secondary" | "card" | "accent" | "destructive" | "background" | "transparent";
+  title: string;
+  tagLine: string | null;
+  body: any;
+  image: SanityImage;
+  link: {
+    title: string;
+    href: string;
+  };
+}
 
 export default function Hero1({
   tagLine,
@@ -15,7 +57,7 @@ export default function Hero1({
   tagLine: string;
   title: string;
   body: any;
-  image: Sanity.Image;
+  image: SanityImage;
   links: {
     title: string;
     href: string;
