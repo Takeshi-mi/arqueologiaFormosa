@@ -53,6 +53,7 @@ export default defineType({
         { type: "form-newsletter" },
         { type: "embedContainer" },
         { type: "buttonContainer" },
+        { type: "featureCards" },
       ],
     }),
     defineField({

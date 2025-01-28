@@ -12,6 +12,7 @@ import FAQs from "@/components/ui/faqs";
 import FormNewsletter from "@/components/ui/forms/newsletter";
 import EmbedContainer from "@/components/ui/embed/embed-container";
 import ButtonContainer from "@/components/ui/button/button-container";
+import FeatureCards from "@/components/ui/feature/feature-cards";
 
 const componentMap = {
   "hero-1": Hero1,
@@ -28,6 +29,7 @@ const componentMap = {
   "form-newsletter": FormNewsletter,
   embedContainer: EmbedContainer,
   buttonContainer: ButtonContainer,
+  featureCards: FeatureCards,
 } as const;
 
 type ComponentKey = keyof typeof componentMap;

@@ -37,6 +37,8 @@ import faqs from "./schemas/blocks/faqs";
 import newsletter from "./schemas/blocks/forms/newsletter";
 import embedContainer from './schemas/objects/embed-container'
 import buttonContainer from './schemas/objects/button-container';
+import featureCard from './schemas/objects/feature-card';
+import featureCards from './schemas/objects/feature-cards';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -77,5 +79,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     newsletter,
     embedContainer,
     buttonContainer,
+    featureCard,
+    featureCards,
   ],
 };
