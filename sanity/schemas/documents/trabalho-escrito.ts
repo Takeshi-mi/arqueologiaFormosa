@@ -104,6 +104,15 @@ export default defineType({
       group: "content",
     }),
     defineField({
+      name: "buttons",
+      title: "Botões",
+      type: "array",
+      group: "content",
+      description: "Adicione até 3 botões de ação",
+      of: [{ type: "link" }],
+      validation: Rule => Rule.max(3),
+    }),
+    defineField({
       name: "meta_title",
       title: "Meta Title",
       type: "string",

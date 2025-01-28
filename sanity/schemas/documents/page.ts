@@ -52,6 +52,7 @@ export default defineType({
         { type: "faqs" },
         { type: "form-newsletter" },
         { type: "embedContainer" },
+        { type: "buttonContainer" },
       ],
     }),
     defineField({

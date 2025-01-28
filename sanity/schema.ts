@@ -36,6 +36,7 @@ import logoCloud1 from "./schemas/blocks/logo-cloud/logo-cloud-1";
 import faqs from "./schemas/blocks/faqs";
 import newsletter from "./schemas/blocks/forms/newsletter";
 import embedContainer from './schemas/objects/embed-container'
+import buttonContainer from './schemas/objects/button-container';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -75,5 +76,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     faqs,
     newsletter,
     embedContainer,
+    buttonContainer,
   ],
 };

@@ -11,6 +11,7 @@ import LogoCloud1 from "@/components/ui/logo-cloud/logo-cloud-1";
 import FAQs from "@/components/ui/faqs";
 import FormNewsletter from "@/components/ui/forms/newsletter";
 import EmbedContainer from "@/components/ui/embed/embed-container";
+import ButtonContainer from "@/components/ui/button/button-container";
 
 const componentMap = {
   "hero-1": Hero1,
@@ -26,6 +27,7 @@ const componentMap = {
   faqs: FAQs,
   "form-newsletter": FormNewsletter,
   embedContainer: EmbedContainer,
+  buttonContainer: ButtonContainer,
 } as const;
 
 type ComponentKey = keyof typeof componentMap;

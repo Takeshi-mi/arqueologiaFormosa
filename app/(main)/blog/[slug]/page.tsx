@@ -8,6 +8,7 @@ import {
   fetchSanityPostsStaticParams,
 } from "../actions";
 import { generatePageMetadata } from "@/lib/metadata";
+import PostButtons from "@/components/ui/button/post-buttons";
 
 export const dynamic = "force-static";
 
@@ -36,10 +37,10 @@ export default async function PostPage(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const post = await fetchSanityPostBySlug(params);
+  const post = await fetchSanityPostBySlug({ slug: params.slug });
 
   if (!post) {
-    notFound();
+    return MissingSanityPage({ document: "post", slug: params.slug });
   }
 
   const links: BreadcrumbLink[] = post
@@ -54,7 +55,7 @@ export default async function PostPage(props: {
         },
         {
           label: post.title as string,
-          href: "#",
+          href: `/blog/${params.slug}`,
         },
       ]
     : [];
@@ -72,6 +73,7 @@ export default async function PostPage(props: {
             _createdAt={post._createdAt}
           />
           {post.body && <PortableTextRenderer value={post.body} />}
+          <PostButtons buttons={post.buttons} alignment="center" />
         </article>
       </div>
     </section>

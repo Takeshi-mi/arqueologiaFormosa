@@ -10,6 +10,7 @@ import { ptBR } from "date-fns/locale";
 import Link from "next/link";
 import { Mail, Facebook } from "lucide-react";
 import { Breadcrumb } from "@/components/breadcrumb";
+import PostButtons from "@/components/ui/button/post-buttons";
 
 async function getTrabalho(slug: string) {
   return client.fetch(TRABALHO_ESCRITO_QUERY, { slug });
@@ -193,6 +194,7 @@ export default async function TrabalhoPage(props: {
         {/* Conteúdo */}
         <div className="prose prose-lg max-w-none">
           <PortableText value={trabalho.body} />
+          <PostButtons buttons={trabalho.buttons} alignment="center" />
         </div>
 
         {/* Informações Adicionais */}

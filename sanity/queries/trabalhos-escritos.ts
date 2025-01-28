@@ -120,6 +120,12 @@ export const TRABALHO_ESCRITO_QUERY = groq`*[_type == "trabalho-escrito" && slug
         }
       }
     },
+    buttons[]{
+      title,
+      href,
+      target,
+      buttonVariant,
+    },
     meta_title,
     meta_description,
     noindex,

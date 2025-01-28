@@ -16,11 +16,33 @@ export default defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
-      name: 'minHeight',
-      title: 'Altura Mínima',
+      name: 'aspectRatio',
+      title: 'Proporção',
       type: 'string',
-      description: 'Altura mínima do container (ex: 400px, 600px)',
-      initialValue: '400px',
+      description: 'Proporção largura/altura do container',
+      options: {
+        list: [
+          { title: '16:9 (Widescreen)', value: '16:9' },
+          { title: '4:3 (Standard)', value: '4:3' },
+          { title: '1:1 (Quadrado)', value: '1:1' },
+          { title: '9:16 (Vertical)', value: '9:16' },
+          { title: 'Personalizado', value: 'custom' },
+        ],
+      },
+      initialValue: '16:9',
+    }),
+    defineField({
+      name: 'customHeight',
+      title: 'Altura Personalizada',
+      type: 'string',
+      description: 'Altura em pixels (ex: 400px) ou porcentagem (ex: 100%). Só funciona quando a proporção é "Personalizado".',
+      hidden: ({ parent }) => parent?.aspectRatio !== 'custom',
+    }),
+    defineField({
+      name: 'maxWidth',
+      title: 'Largura Máxima',
+      type: 'string',
+      description: 'Largura máxima do container (ex: 800px, 100%). Deixe em branco para usar a largura padrão.',
     }),
     defineField({
       name: 'padding',
@@ -37,12 +59,13 @@ export default defineType({
   preview: {
     select: {
       embedCode: 'embedCode',
+      aspectRatio: 'aspectRatio',
     },
     prepare(selection: Record<string, any>) {
-      const { embedCode } = selection;
+      const { embedCode, aspectRatio } = selection;
       return {
         title: 'Container de Embed',
-        subtitle: embedCode ? 'Com embed configurado' : 'Sem embed configurado',
+        subtitle: `${aspectRatio || '16:9'} - ${embedCode ? 'Com embed configurado' : 'Sem embed configurado'}`,
         media: Code2,
       };
     },

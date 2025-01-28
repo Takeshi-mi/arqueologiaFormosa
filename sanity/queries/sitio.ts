@@ -12,6 +12,7 @@ import { logoCloud1Query } from "./logo-cloud/logo-cloud-1";
 import { faqsQuery } from "./faqs";
 import { formNewsletterQuery } from "./forms/newsletter";
 import { embedContainerQuery } from "./embed-container";
+import { buttonContainerQuery } from "./button-container";
 
 export const SITIO_QUERY = groq`
   *[_type == "sitio" && slug.current == $slug][0]{
@@ -30,6 +31,7 @@ export const SITIO_QUERY = groq`
       ${faqsQuery}
       ${formNewsletterQuery}
       ${embedContainerQuery}
+      ${buttonContainerQuery}
     },
     meta_title,
     meta_description,
