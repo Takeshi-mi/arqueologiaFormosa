@@ -45,6 +45,7 @@ declare global {
 
     type Image = SanityImageObject & {
       alt?: string;
+      updatedAt?: string;
       asset?: (SanityReference & {
         _type: "reference";
         _id: string;

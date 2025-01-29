@@ -88,6 +88,12 @@ export default defineType({
           type: "string",
           title: "Texto Alternativo",
         },
+        {
+          name: "updatedAt",
+          type: "datetime",
+          title: "Data de Atualização",
+          hidden: true,
+        },
       ],
     }),
     defineField({

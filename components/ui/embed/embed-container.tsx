@@ -26,6 +26,10 @@ const aspectRatioMap = {
   "9:16": "177.78%",
 };
 
+const isWistiaEmbed = (code: string) => {
+  return code.includes('wistia-player');
+};
+
 export default function EmbedContainer({
   _key,
   embedCode,
@@ -42,26 +46,86 @@ export default function EmbedContainer({
     setIsMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (isMounted && isWistiaEmbed(embedCode)) {
+      // Carrega os scripts do Wistia dinamicamente
+      const playerScript = document.createElement('script');
+      playerScript.src = 'https://fast.wistia.com/player.js';
+      playerScript.async = true;
+      document.head.appendChild(playerScript);
+
+      // Extrai o ID do vídeo do código do embed
+      const mediaIdMatch = embedCode.match(/media-id=['"]([^'"]+)['"]/);
+      if (mediaIdMatch) {
+        const mediaId = mediaIdMatch[1];
+        const embedScript = document.createElement('script');
+        embedScript.src = `https://fast.wistia.com/embed/${mediaId}.js`;
+        embedScript.async = true;
+        embedScript.type = 'module';
+        document.head.appendChild(embedScript);
+      }
+
+      return () => {
+        // Limpa os scripts quando o componente é desmontado
+        document.head.removeChild(playerScript);
+        const embedScript = document.querySelector(`script[src*="${mediaIdMatch?.[1]}"]`);
+        if (embedScript) {
+          document.head.removeChild(embedScript);
+        }
+      };
+    }
+  }, [isMounted, embedCode]);
+
   if (!embedCode) return null;
 
-  // Limpa o código do iframe e adiciona os estilos necessários
-  const cleanedEmbedCode = embedCode.replace(
-    /<iframe/g,
-    '<iframe style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; border: 0;"'
-  );
+  const isWistia = isWistiaEmbed(embedCode);
 
-  // Calcula o padding-bottom baseado na proporção ou altura personalizada
-  const paddingBottom = aspectRatio === "custom" && customHeight 
-    ? "0" 
-    : aspectRatioMap[aspectRatio as keyof typeof aspectRatioMap] || "56.25%";
+  // Para embeds que não são do Wistia, mantém o comportamento original
+  if (!isWistia) {
+    const cleanedEmbedCode = embedCode.replace(
+      /<iframe/g,
+      '<iframe style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; border: 0;"'
+    );
 
-  // Estilo para altura personalizada
-  const containerStyle = {
-    paddingBottom: aspectRatio === "custom" ? "0" : paddingBottom,
-    height: aspectRatio === "custom" ? customHeight : undefined,
-    maxWidth: maxWidth || undefined,
-  };
+    const paddingBottom = aspectRatio === "custom" && customHeight 
+      ? "0" 
+      : aspectRatioMap[aspectRatio as keyof typeof aspectRatioMap] || "56.25%";
 
+    const containerStyle = {
+      paddingBottom: aspectRatio === "custom" ? "0" : paddingBottom,
+      height: aspectRatio === "custom" ? customHeight : undefined,
+      maxWidth: maxWidth || undefined,
+    };
+
+    return (
+      <SectionContainer key={_key} color={color} padding={padding} fluid>
+        <div className={cn(
+          "container mx-auto",
+          maxWidth && "flex justify-center"
+        )}>
+          <div 
+            className={cn(
+              "relative w-full",
+              maxWidth && "max-w-[var(--max-width)]"
+            )}
+            style={{ 
+              ...containerStyle,
+              "--max-width": maxWidth,
+            } as React.CSSProperties}
+          >
+            {isMounted && (
+              <div
+                className="absolute inset-0 rounded-lg overflow-hidden"
+                dangerouslySetInnerHTML={{ __html: cleanedEmbedCode }}
+              />
+            )}
+          </div>
+        </div>
+      </SectionContainer>
+    );
+  }
+
+  // Para embeds do Wistia
   return (
     <SectionContainer key={_key} color={color} padding={padding} fluid>
       <div className={cn(
@@ -74,14 +138,14 @@ export default function EmbedContainer({
             maxWidth && "max-w-[var(--max-width)]"
           )}
           style={{ 
-            ...containerStyle,
+            maxWidth: maxWidth || undefined,
             "--max-width": maxWidth,
           } as React.CSSProperties}
         >
           {isMounted && (
             <div
-              className="absolute inset-0 rounded-lg overflow-hidden"
-              dangerouslySetInnerHTML={{ __html: cleanedEmbedCode }}
+              className="rounded-lg overflow-hidden"
+              dangerouslySetInnerHTML={{ __html: embedCode }}
             />
           )}
         </div>
