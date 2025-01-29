@@ -37,6 +37,7 @@ type ComponentKey = keyof typeof componentMap;
 interface Block {
   _key: string;
   _type: string;
+  id?: string;
   [key: string]: any;
 }
 

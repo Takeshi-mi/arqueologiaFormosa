@@ -3,6 +3,7 @@ import { groq } from "next-sanity";
 export const hero1Query = groq`
   _type == "hero-1" => {
     _type,
+    id,
     tagLine,
     title,
     body,

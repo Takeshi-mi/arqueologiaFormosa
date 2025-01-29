@@ -13,6 +13,7 @@ export default function SectionHeader({
   tagLine,
   title,
   description,
+  id,
 }: Partial<{
   padding: ISectionPadding;
   colorVariant: ISectionContainer["color"];
@@ -21,13 +22,14 @@ export default function SectionHeader({
   tagLine: string;
   title: string;
   description: string;
+  id?: string;
 }>) {
   const isNarrow = stegaClean(sectionWidth) === "narrow";
   const align = stegaClean(stackAlign);
   const color = stegaClean(colorVariant);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer color={color} padding={padding} id={id}>
       <div
         className={cn(
           align === "center" ? "max-w-[48rem] text-center mx-auto" : undefined,

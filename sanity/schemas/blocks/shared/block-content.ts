@@ -1,4 +1,20 @@
-import { defineType, defineArrayMember } from "sanity";
+import { defineType, defineArrayMember, defineField } from "sanity";
+
+export const blockFields = [
+  defineField({
+    name: "id",
+    title: "ID da Seção",
+    description: "ID único para navegação na página (ex: sobre, contato, etc). Será usado como id do elemento HTML para links de ancoragem.",
+    type: "string",
+    validation: Rule => Rule.custom((id, context) => {
+      if (!id) return true;
+      if (!/^[a-z0-9-_]+$/.test(id)) {
+        return 'O ID deve conter apenas letras minúsculas, números, hífens e underscores';
+      }
+      return true;
+    })
+  }),
+];
 
 export default defineType({
   title: "Block Content",

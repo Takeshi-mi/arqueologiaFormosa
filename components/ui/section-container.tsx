@@ -23,6 +23,7 @@ export interface ISectionContainer {
   className?: string;
   padding?: ISectionPadding | null | undefined;
   fluid?: boolean;
+  id?: string;
 }
 
 export default function SectionContainer({
@@ -31,9 +32,13 @@ export default function SectionContainer({
   children,
   className,
   fluid = false,
+  id,
 }: ISectionContainer) {
+  console.log("SectionContainer ID:", id);
   return (
-    <div
+    <section
+      id={id}
+      data-section-id={id}
       className={cn(
         `bg-${color} relative`,
         padding?.top ? "pt-16 xl:pt-20" : undefined,
@@ -42,6 +47,6 @@ export default function SectionContainer({
       )}
     >
       <div className={fluid ? "w-full" : "container"}>{children}</div>
-    </div>
+    </section>
   );
 }

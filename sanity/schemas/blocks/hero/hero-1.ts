@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { LayoutTemplate } from "lucide-react";
+import { blockFields } from "../shared/block-content";
 
 export default defineType({
   name: "hero-1",
@@ -7,6 +8,7 @@ export default defineType({
   type: "object",
   icon: LayoutTemplate,
   fields: [
+    ...blockFields,
     defineField({
       name: "tagLine",
       type: "string",

@@ -9,15 +9,17 @@ export default function SplitRow({
   padding,
   colorVariant,
   splitColumns,
+  id,
 }: Partial<{
   padding: ISectionPadding;
   colorVariant: ISectionContainer["color"];
   splitColumns: ISplitColumn[];
+  id?: string;
 }>) {
   const color = stegaClean(colorVariant);
 
   return (
-    <SectionContainer color={color} padding={padding}>
+    <SectionContainer color={color} padding={padding} id={id}>
       {splitColumns && splitColumns?.length > 0 && (
         <div className="grid grid-col-1 gap-6 xl:gap-16">
           {splitColumns?.map((column, index) => (

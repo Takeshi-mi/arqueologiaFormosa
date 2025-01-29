@@ -19,6 +19,7 @@ export interface GridRowProps {
   tagLine?: string | null;
   body?: any;
   columns?: Sanity.Block[];
+  id?: string;
 }
 
 // map all components you need
@@ -50,9 +51,10 @@ export default function GridRow({
   tagLine,
   body,
   columns,
+  id,
 }: GridRowProps) {
   return (
-    <SectionContainer color={colorVariant} padding={padding}>
+    <SectionContainer color={colorVariant} padding={padding} id={id}>
       {title && (
         <div className="text-center mb-10">
           {tagLine && (
