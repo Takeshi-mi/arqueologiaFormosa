@@ -29,10 +29,12 @@ const navItems = [
 
 export default function Header() {
   return (
-    <header className="sticky top-0 w-full border-border/40 bg-background/95 z-50">
+    <header className="sticky top-0 w-full border-b border-border/40 bg-background/95 backdrop-blur-sm z-50">
       <div className="container flex items-center justify-between h-14">
         <div className="flex-1 flex justify-start gap-7 items-center">
-          <DesktopNav navItems={navItems.slice(0, 2)} />
+          <div className="hidden xl:block">
+            <DesktopNav navItems={navItems.slice(0, 2)} />
+          </div>
         </div>
         <div className="flex-1 flex justify-center">
           <Link href="/" aria-label="Home page">
@@ -40,13 +42,13 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex-1 flex justify-end gap-7 items-center">
-          <DesktopNav navItems={navItems.slice(2)} />
+          <div className="hidden xl:block">
+            <DesktopNav navItems={navItems.slice(2)} />
+          </div>
           <ModeToggle />
-        </div>
-        
-        <div className="flex items-center xl:hidden">
-          {/* <ModeToggle /> */}
-          <MobileNav navItems={navItems} />
+          <div className="xl:hidden">
+            <MobileNav navItems={navItems} />
+          </div>
         </div>
       </div>
     </header>
