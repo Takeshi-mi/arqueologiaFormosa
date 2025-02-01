@@ -57,18 +57,18 @@ export const structure = (S: any, context: any) =>
         S,
         context,
       }),
-      orderableDocumentListDeskItem({
-        type: "faq",
-        title: "FAQs",
-        icon: ListCollapse,
-        S,
-        context,
-      }),
-      orderableDocumentListDeskItem({
-        type: "testimonial",
-        title: "Avaliações",
-        icon: Quote,
-        S,
-        context,
-      }),
+      // orderableDocumentListDeskItem({
+      //   type: "faq",
+      //   title: "FAQs",
+      //   icon: ListCollapse,
+      //   S,
+      //   context,
+      // }),
+      // orderableDocumentListDeskItem({
+      //   type: "testimonial",
+      //   title: "Avaliações",
+      //   icon: Quote,
+      //   S,
+      //   context,
+      // }),
     ]);
