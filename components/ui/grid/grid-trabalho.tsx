@@ -63,12 +63,12 @@ export default function GridTrabalho({
           {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-4">
             {trabalho.tipos?.map((tipo) => (
-              <Badge key={tipo._id} variant="secondary" className="bg-orange-200 hover:bg-white text-orange-500">
+              <Badge key={tipo._id} variant="secondary" className="bg-orange-200 hover:bg-white text-black-500">
                 {tipo.title}
               </Badge>
             ))}
             {trabalho.sitios?.map((sitio) => (
-              <Badge key={sitio._id} variant="secondary" className="bg-orange-200 hover:bg-white text-orange-500">
+              <Badge key={sitio._id} variant="secondary" className="bg-orange-200 hover:bg-white text-black -500">
                 {sitio.title}
               </Badge>
             ))}
