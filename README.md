@@ -12,6 +12,7 @@ www.arqueologiaformosa.vercel.app
 - **Sanity**: CMS para gerenciamento de conteúdo.
 - **Tailwind CSS**: Framework CSS para estilização.
 - **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
+- **Schema UI**: Lib de componentes pré-construídos.
 
 ## Estrutura do Projeto
 - **/app**: Contém as páginas e layouts do Next.js.
