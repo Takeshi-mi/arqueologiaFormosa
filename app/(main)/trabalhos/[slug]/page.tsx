@@ -136,7 +136,7 @@ export default async function TrabalhoPage(props: {
             <div className="flex flex-col md:flex-row gap-2">
               <div>Compartilhar</div>
               <div className="flex gap-2">
-                <a
+                {/* <a
                   className="hover:opacity-70"
                   href={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_SITE_URL}/trabalhos/${params.slug}`}
                   target="_blank"
@@ -145,7 +145,7 @@ export default async function TrabalhoPage(props: {
                   title="Compartilhe no Facebook"
                 >
                   <Facebook size={24} />
-                </a>
+                </a> */}
                 <a
                   className="hover:opacity-70"
                   href={`mailto:?subject=${trabalho.title}&body=${trabalho.title}%0A%0A${process.env.NEXT_PUBLIC_SITE_URL}/trabalhos/${params.slug}`}
