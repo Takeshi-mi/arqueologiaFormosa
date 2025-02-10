@@ -5,7 +5,7 @@ O projeto "Arqueologia Formosa" é um site dedicado a preservar e compartilhar o
 
 # Deploy
 Foi feito o deploy na Vercel. Acesse o site nesse link
-www.arqueologiaformosa.vercel.app
+https://www.arqueologiaformosa.com.br
 
 ## Tecnologias Utilizadas
 - **Next.js**: Framework React para desenvolvimento web.
