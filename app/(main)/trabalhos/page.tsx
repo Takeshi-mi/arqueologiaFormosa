@@ -6,6 +6,8 @@ import { TrabalhosLista } from "@/components/trabalhos/trabalhos-lista";
 // Revalidar a cada 24 horas (em segundos)
 export const revalidate = 86400;
 
+// export const revalidate = 1;
+
 export const metadata: Metadata = {
   title: "Trabalhos Escritos",
   description: "Explore nossa coleção de trabalhos escritos sobre arqueologia",
