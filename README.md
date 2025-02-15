@@ -2,16 +2,23 @@
 
 ## Descrição
 O projeto "Arqueologia Formosa" é um site dedicado a preservar e compartilhar o patrimônio arqueológico da cidade de Formosa,Goiás. Ele oferece informações sobre sítios arqueológicos, trabalhos escritos, blog e contato.
+![desktop sítios](https://github.com/user-attachments/assets/f8d4e946-50b3-459d-bf0b-0332c3ec2f43)
+![lighthouse_only](https://github.com/user-attachments/assets/d0e915e5-3f5a-486b-9c8c-4c21791930b1)
+![Trabalhos escritos](https://github.com/user-attachments/assets/b01f646a-b81c-4183-b808-58f0f0e10b0d)
+![image](https://github.com/user-attachments/assets/8bb3d681-616c-4fc2-9638-bd63ece3db11)
+![Uploading image.png…]()
+
 
 # Deploy
 Foi feito o deploy na Vercel. Acesse o site nesse link
-www.arqueologiaformosa.vercel.app
+https://www.arqueologiaformosa.com.br
 
 ## Tecnologias Utilizadas
 - **Next.js**: Framework React para desenvolvimento web.
 - **Sanity**: CMS para gerenciamento de conteúdo.
 - **Tailwind CSS**: Framework CSS para estilização.
 - **TypeScript**: Superset do JavaScript que adiciona tipagem estática.
+- **Schema UI**: Lib de componentes pré-construídos.
 
 ## Estrutura do Projeto
 - **/app**: Contém as páginas e layouts do Next.js.
