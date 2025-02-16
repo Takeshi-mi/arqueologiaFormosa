@@ -11,9 +11,11 @@ const isProduction = process.env.NEXT_PUBLIC_SITE_ENV === "production";
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
   title: {
-    template: "%s",
-    default: "Arqueologia Formosa Admin",
+    template: "%s | Arqueologia Formosa",
+    default: "Arqueologia Formosa - Pesquisa Arqueológica em Formosa, Goiás",
   },
+  description: "Portal de pesquisa arqueológica em Formosa, Goiás. Explore sítios arqueológicos, trabalhos acadêmicos e descobertas na região.",
+  keywords: ["arqueologia", "Formosa", "Goiás", "sítios arqueológicos", "pesquisa arqueológica", "patrimônio cultural"],
   openGraph: {
     images: [
       {
@@ -22,10 +24,15 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
-    locale: "en_US",
+    locale: "pt_BR",
     type: "website",
+    siteName: "Arqueologia Formosa",
+    description: "Portal de pesquisa arqueológica em Formosa, Goiás. Explore sítios arqueológicos, trabalhos acadêmicos e descobertas na região.",
   },
   robots: !isProduction ? "noindex, nofollow" : "index, follow",
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL,
+  },
 };
 
 const fontSans = FontSans({
