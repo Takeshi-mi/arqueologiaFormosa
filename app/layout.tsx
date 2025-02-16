@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 import GoogleAnalytics from "@/components/analytics";
 
 const isProduction = process.env.NEXT_PUBLIC_SITE_ENV === "production";
@@ -12,9 +13,11 @@ const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL!),
   title: {
-    template: "%s",
-    default: "Arqueologia Formosa Admin",
+    template: "%s | Arqueologia Formosa",
+    default: "Arqueologia Formosa - Pesquisa Arqueológica em Formosa, Goiás",
   },
+  description: "Portal de pesquisa arqueológica em Formosa, Goiás. Explore sítios arqueológicos, trabalhos acadêmicos e descobertas na região.",
+  keywords: ["arqueologia", "Formosa", "Goiás", "sítios arqueológicos", "pesquisa arqueológica", "patrimônio cultural"],
   openGraph: {
     images: [
       {
@@ -23,10 +26,15 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
-    locale: "en_US",
+    locale: "pt_BR",
     type: "website",
+    siteName: "Arqueologia Formosa",
+    description: "Portal de pesquisa arqueológica em Formosa, Goiás. Explore sítios arqueológicos, trabalhos acadêmicos e descobertas na região.",
   },
   robots: !isProduction ? "noindex, nofollow" : "index, follow",
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL,
+  },
 };
 
 const fontSans = FontSans({
@@ -61,6 +69,8 @@ export default function RootLayout({
           {children}
           <Toaster position="top-center" richColors />
         </ThemeProvider>
+        <Toaster position="top-center" richColors />
+        {isProduction && <Analytics />}
         {isProduction && GA_MEASUREMENT_ID && (
           <GoogleAnalytics GA_MEASUREMENT_ID={GA_MEASUREMENT_ID} />
         )}
