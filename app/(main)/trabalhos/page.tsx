@@ -4,9 +4,9 @@ import { TRABALHOS_ESCRITOS_QUERY } from "@/sanity/queries/trabalhos-escritos";
 import { TrabalhosLista } from "@/components/trabalhos/trabalhos-lista";
 
 // Revalidar a cada 24 horas (em segundos)
-export const revalidate = 86400;
-
-// export const revalidate = 1;
+// export const revalidate = 86400;
+// Foi ativado um webhook no Sanity para revalidar o cache, então não precisa dessa revalidação manual.
+// Isso vai economizar tempo e recursos.
 
 export const metadata: Metadata = {
   title: "Trabalhos Escritos",
