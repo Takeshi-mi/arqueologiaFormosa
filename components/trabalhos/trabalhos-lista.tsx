@@ -8,6 +8,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Filter } from "lucide-react";
 
 interface Props {
   initialTrabalhos: any[];
@@ -71,84 +74,105 @@ export function TrabalhosLista({ initialTrabalhos, sitios, tipos }: Props) {
   };
 
   return (
-    <div className="flex gap-8">
-      {/* Filtro Lateral */}
-      <aside className="shrink-0">
-        <TrabalhosFilter
-          sitios={sitios}
-          tipos={tipos}
-          onFilterChange={handleFilterChange}
-        />
-      </aside>
+    <div className="space-y-4">
+      {/* Botão de filtro móvel */}
+      <div className="lg:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" className="w-full">
+              <Filter className="mr-2 h-4 w-4" />
+              Filtros
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+            <TrabalhosFilter
+              sitios={sitios}
+              tipos={tipos}
+              onFilterChange={handleFilterChange}
+            />
+          </SheetContent>
+        </Sheet>
+      </div>
 
-      {/* Lista de Trabalhos */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
-        {trabalhos.map((trabalho: any) => (
-          <Link
-            key={trabalho.slug.current}
-            href={`/trabalhos/${trabalho.slug.current}`}
-            className="no-underline"
-          >
-            <Card className="h-full hover:shadow-lg transition-shadow">
-              <div className="aspect-[16/9] relative">
-                {trabalho.image && trabalho.image.asset && (
-                  <Image
-                    src={urlForImage(trabalho.image)?.url() || "/images/placeholder.svg"}
-                    alt={trabalho.image.alt || trabalho.title}
-                    fill
-                    className="object-cover rounded-t-lg"
-                  />
-                )}
-              </div>
-              <div className="p-4 space-y-2">
-                <h2 className="text-xl font-semibold line-clamp-2">
-                  {trabalho.title}
-                </h2>
-                
-                {trabalho.tipos && trabalho.tipos.length > 0 && (
-                  <div className="flex gap-2 flex-wrap">
-                    {trabalho.tipos.map((tipo: any) => (
-                      <span
-                        key={tipo.title}
-                        className="bg-primary/10 text-primary text-sm px-2 py-1 rounded"
-                      >
-                        {tipo.title}
-                      </span>
-                    ))}
-                  </div>
-                )}
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Filtro Lateral (visível apenas em desktop) */}
+        <aside className="hidden lg:block shrink-0">
+          <TrabalhosFilter
+            sitios={sitios}
+            tipos={tipos}
+            onFilterChange={handleFilterChange}
+          />
+        </aside>
 
-                {trabalho.excerpt && (
-                  <p className="text-muted-foreground line-clamp-2">
-                    {trabalho.excerpt}
-                  </p>
-                )}
-
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  {trabalho.publishedAt && (
-                    <time>
-                      {format(new Date(trabalho.publishedAt), "d 'de' MMMM 'de' yyyy", {
-                        locale: ptBR,
-                      })}
-                    </time>
+        {/* Lista de Trabalhos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
+          {trabalhos.map((trabalho: any) => (
+            <Link
+              key={trabalho.slug.current}
+              href={`/trabalhos/${trabalho.slug.current}`}
+              className="no-underline"
+            >
+              <Card className="h-full hover:shadow-lg transition-shadow">
+                <div className="aspect-[16/9] relative">
+                  {trabalho.image && trabalho.image.asset && (
+                    <Image
+                      src={urlForImage(trabalho.image)?.url() || "/images/placeholder.svg"}
+                      alt={trabalho.image.alt || trabalho.title}
+                      fill
+                      className="object-cover rounded-t-lg"
+                    />
                   )}
                 </div>
-
-                {trabalho.authors && trabalho.authors.length > 0 && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <span>por</span>
-                    <div className="font-medium">
-                      {trabalho.authors
-                        .map((author: any) => author.name)
-                        .join(", ")}
+                <div className="p-4 space-y-2">
+                  <h2 className="text-xl font-semibold line-clamp-2">
+                    {trabalho.title}
+                  </h2>
+                  
+                  {trabalho.tipos && trabalho.tipos.length > 0 && (
+                    <div className="flex gap-2 flex-wrap">
+                      {trabalho.tipos.map((tipo: any) => (
+                        <span
+                          key={tipo.title}
+                          className="bg-primary/10 text-primary text-sm px-2 py-1 rounded"
+                        >
+                          {tipo.title}
+                        </span>
+                      ))}
                     </div>
+                  )}
+
+                  {trabalho.excerpt && (
+                    <p className="text-muted-foreground line-clamp-2">
+                      {trabalho.excerpt}
+                    </p>
+                  )}
+
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    {trabalho.publishedAt && (
+                      <time>
+                        {format(new Date(trabalho.publishedAt), "d 'de' MMMM 'de' yyyy", {
+                          locale: ptBR,
+                        })}
+                      </time>
+                    )}
                   </div>
-                )}
-              </div>
-            </Card>
-          </Link>
-        ))}
+
+                  {trabalho.authors && trabalho.authors.length > 0 && (
+                    <div className="flex items-center gap-2 text-sm">
+                      <span>por</span>
+                      <div className="font-medium">
+                        {trabalho.authors
+                          .map((author: any) => author.name)
+                          .join(", ")}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
-} 
+}
