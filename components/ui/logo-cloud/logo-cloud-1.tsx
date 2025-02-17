@@ -86,10 +86,10 @@ export default function LogoCloud1({
           animate={{
             x: ["0%", "-50%"],
           }}
-          className="flex w-max gap-32 pr-32"
+          className="flex w-max gap-8 pr-8" // gap entre cada grupo de imagens
         >
           {[0, 1].map((arrayIndex) => (
-            <div key={`group-${arrayIndex}`} className="flex">
+            <div key={`group-${arrayIndex}`} className="flex gap-8">
               {images?.map((image) => {
                 const assetId = image.asset?.['_type'] === "sanity.imageAsset" 
                   ? image.asset._id 
