@@ -86,7 +86,7 @@ export default function LogoCloud1({
           animate={{
             x: ["0%", "-50%"],
           }}
-          className="flex w-max gap-24 pr-24"
+          className="flex w-max gap-32 pr-32"
         >
           {[0, 1].map((arrayIndex) => (
             <div key={`group-${arrayIndex}`} className="flex">
