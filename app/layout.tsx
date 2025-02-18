@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     default: "Arqueologia Formosa - Pesquisa Arqueológica em Formosa, Goiás",
   },
   description: "Portal de pesquisa arqueológica em Formosa, Goiás. Explore sítios arqueológicos, trabalhos acadêmicos e descobertas na região.",
-  keywords: ["arqueologia", "Formosa", "Goiás", "sítios arqueológicos", "pesquisa arqueológica", "patrimônio cultural"],
+  keywords: ["arqueologia", "bisnau","Toca da Onça", "Lapa da Pedra",  "Formosa", "Goiás", "sítios arqueológicos", "pesquisa arqueológica", "patrimônio cultural"],
   openGraph: {
     images: [
       {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     locale: "pt_BR",
     type: "website",
     siteName: "Arqueologia Formosa",
-    description: "Portal de pesquisa arqueológica em Formosa, Goiás. Explore sítios arqueológicos, trabalhos acadêmicos e descobertas na região.",
+    description: "Portal de pesquisa arqueológica em Formosa, Goiás. Explore sítios arqueológicos, trabalhos acadêmicos e descobertas na região. Toca da onça, Lapa da Pedra, Bisnau e muito mais.",
   },
   robots: !isProduction ? "noindex, nofollow" : "index, follow",
   alternates: {
